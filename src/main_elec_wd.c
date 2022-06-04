@@ -23,6 +23,7 @@
 #include "finite_T.h"
 #include "multiscatter.h"
 // #include "use_cuba.h"
+#include "collective_effects.h"
 
 //=============================================================================
 
@@ -129,7 +130,13 @@ control_params.ct = 1.;
 
         // crate_all_multiscat(3., 6., 0.2);
 
-        crate_complete(-2, 8, 0.2);
+        // crate_complete(-2, 8, 0.2);
+
+        double soln = solnFunc(0.1, 0.2, -0.001, 1e-3, 0.1, 0.5, 10.0);
+        printf("%0.5e\n", soln);
+        double out = CollEffFF(-0.001, 1e-3, 0.1, 0.5, 10.0, soln);
+
+        printf("%0.5e\n", out);
 
         //=============================================================================
         // RADIAL PROFILE CALCULATION

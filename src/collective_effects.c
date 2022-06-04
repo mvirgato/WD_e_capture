@@ -10,6 +10,23 @@
 #include <gsl/gsl_spline2d.h>
 
 #include "globals.h"
+#include "collective_effects.h"
+
+
+/* In this module:
+        muFe = Fermi kinetic energy, what we call chemical potential in our early papers
+        mue  = Conventional chemical potential, mue = muFe + mt
+*/
+
+// Helper functions
+double logabs( double x){
+
+    return log( fabs( x ) );
+}
+
+double arcTanh( double x ){
+	return 0.5*log(fabs((1.0 + x)/(1.0 - x)));
+}
 
 
 double q0_tr(double uchi, double mchi, double B, double muFe, double soln){
@@ -32,9 +49,146 @@ double q_tr_2(double q0, double t){
 
 }
 
-double Eplus(double t, double q0, double q, double muFe){
+double Eplus(double t, double q0, double q, double mue){
     // Kinematic factor (B.8) in Coll. Effects paper
 
-    return fmax(muFe, 0.5 * ( q0 + q * sqrt(1.0 - 4.0 * mt*mt / t)));
+    return fmax(mue, 0.5 * ( q0 + q * sqrt(1.0 - 4.0 * mt*mt / t)));
 }
 
+
+// Self Energies for degenerate Fermi gas
+
+double ImPiL_degen(double t, double q0, double q, double muFe){
+    // Imaginary part of photon self energy
+
+    double mue = muFe + mt; // Change between conventions for muFe. Lasenby uses standard convention compared to our "Fermi Kinetic Energy"
+    double ep = Eplus(t, q0, q, mue);
+
+
+    if (ep > mue + q0){
+        return 0.0;
+    }
+
+    else {
+        double ep2 = ep * ep;
+        double ep3 = ep*ep*ep;
+        double mue2 = mue*mue;
+        double mue3 = mue2*mue;
+
+        double prefac = -echarge*echarge/4.0/pi;
+
+        double brak = ( -2.0 * ep3 / 3.0 + 2.0 * mue3 / 3.0 + ep2 * q0 + mue2 * q0 - q0*q0*q0 / 3.0 - ep * t/2.0 + mue * t / 2.0 + q0 * t / 2.0);
+
+        return prefac * brak;
+    }
+
+}
+
+double RePiL_degen(double t, double q0, double q, double muFe){
+
+    // Real part of photon self energy
+
+    double mue = muFe + mt; // Change between conventions for muFe. Lasenby uses standard convention compared to our "Fermi Kinetic Energy"
+    double pf = sqrt( mue * mue - mt * mt);
+
+    double q3 = q*q*q;
+
+    double ik = q*(-(mue*pf) + mt * mt *log((mue + pf)/mt));
+
+	double i0m = integ0m(t, q0, q, mue, pf);
+	double i1m = integ1m(t, q0, q, mue, pf);
+	double i2m = integ2m(t, q0, q, mue, pf);
+	double i0p = integ0p(t, q0, q, mue, pf);
+	double i1p = integ1p(t, q0, q, mue, pf);
+	double i2p = integ2p(t, q0, q, mue, pf);
+
+	double res = (ik - (t/4)*i0m - i2m + q0*i1m + i2p + (t/4)*i0p + q0*i1p);
+	return (t/q3)*(echarge*echarge/(2*pi*pi))*res;
+
+}
+
+// double PiL_degen(double t, double uchi, double mchi, double B, double muFe, double soln){
+
+//     // Full longintudinal self energy
+
+//     double q0 = q0_tr(uchi, mchi, B, muFe, soln);
+//     double q  = sqrt(q_tr_2(q0, t));
+
+//     return
+
+// }
+
+double CollEffFF(double t, double uchi, double mchi, double B, double muFe, double soln){
+
+    double q0 = q0_tr(uchi, mchi, B, muFe, soln);
+    double q  = sqrt(q_tr_2(q0, t));
+
+    // Fudge Factor to account for collective effects
+
+    double RePiL = RePiL_degen(t, q0, q, muFe);
+    double ImPiL = ImPiL_degen(t, q0, q, muFe);
+
+    double denom = ((RePiL - t) * (RePiL - t) + ImPiL*ImPiL);
+
+    return t*t / denom; // missing kappa
+}
+
+// Analytic expressions for integrals
+
+double integ0m(double t, double q0, double q, double muFe, double pf){
+
+    double QQ2 = q0*q0 + q*q; 
+
+    double C1 = sqrt(t*(t - 4.0*mt*mt));
+
+	return ((2*q*logabs((muFe + pf)/mt) + 2*muFe*logabs((-2*pf*q - 2*muFe*q0 + t)/(2*pf*q - 2*muFe*q0 + t)) + ((4*(mt*mt)*q*q0 - 2*q*q0*t + C1*QQ2)*(logabs(mt) + logabs(-(C1*q) - 2*muFe*t + q0*t)))/ sqrt(t*(-2*q0*(C1*q + 2*(mt*mt)*q0) + t*QQ2)) + ((2*q*q0*(-2*(mt*mt) + t) + C1*QQ2)*(-logabs(mt) - logabs(C1*q - 2*muFe*t + q0*t)))/ sqrt(t*(2*C1*q*q0 - 4*(mt*mt)*(q0*q0) + t*QQ2)) - ((4*(mt*mt)*q*q0 - 2*q*q0*t + C1*QQ2)*logabs(C1*muFe*q + 2*(mt*mt)*t - muFe*q0*t + pf*sqrt(t*(-2*C1*q*q0 - 4*(mt*mt)*(q0*q0) + t*QQ2))))/ sqrt(t*(-2*C1*q*q0 - 4*(mt*mt)*(q0*q0) + t*QQ2)) + ((-4*(mt*mt)*q*q0 + 2*q*q0*t + C1*QQ2)*logabs(C1*muFe*q - 2*(mt*mt)*t + muFe*q0*t - pf*sqrt(t*(2*C1*q*q0 - 4*(mt*mt)*(q0*q0) + t*QQ2))))/ sqrt(t*(2*C1*q*q0 - 4*(mt*mt)*(q0*q0) + t*QQ2)))/2);
+}
+
+double integ0p(double t, double q0, double q, double muFe, double pf){
+
+
+    double QQ2 = q0 * q0 + q * q;
+
+    double C1 = sqrt(t*(t - 4*(mt*mt)));
+
+	return ((-2*q*logabs((muFe + pf)/mt) + 2*muFe*logabs((2*pf*q + 2*muFe*q0 + t)/(-2*pf*q + 2*muFe*q0 + t)) + ((4*(mt*mt)*q*q0 - 2*q*q0*t - C1*QQ2)*(logabs(mt) + logabs(-(C1*q) - (2*muFe + q0)*t)))/ sqrt(t*(2*C1*q*q0 - 4*(mt*mt)*(q0*q0) + t*QQ2)) - ((4*(mt*mt)*q*q0 - 2*q*q0*t + C1*QQ2)*(-logabs(mt) - logabs(C1*q - (2*muFe + q0)*t)))/ sqrt(t*(-2*q0*(C1*q + 2*(mt*mt)*q0) + t*QQ2)) - ((4*(mt*mt)*q*q0 - 2*q*q0*t + C1*QQ2)*logabs(C1*muFe*q - 2*(mt*mt)*t - muFe*q0*t - pf*sqrt(t*(-2*C1*q*q0 - 4*(mt*mt)*(q0*q0) + t*QQ2))))/ sqrt(t*(-2*C1*q*q0 - 4*(mt*mt)*(q0*q0) + t*QQ2)) + ((-4*(mt*mt)*q*q0 + 2*q*q0*t + C1*QQ2)*logabs(C1*muFe*q + 2*(mt*mt)*t + muFe*q0*t + pf*sqrt(t*(2*C1*q*q0 - 4*(mt*mt)*(q0*q0) + t*QQ2))))/ sqrt(t*(2*C1*q*q0 - 4*(mt*mt)*(q0*q0) + t*QQ2)))/2);
+}
+
+double integ1m(double t, double q0, double q, double muFe, double pf){
+
+
+    double QQ2 = q0 * q0 + q * q;
+
+    double C1 = sqrt(t*(t - 4*(mt*mt)));
+
+    return ((pf * q + (q * q0 * (-2 * (mt * mt) + t) * arcTanh(muFe / pf)) / t - ((8 * q0 * t * (-2 * (mt * mt) + t) * (4 * (mt * mt) * (q * q) + (t * t)) + (4 * C1 * q - 4 * q0 * t) * (4 * (mt * mt) * ((q * q * q * q) + (q * q) * (q0 * q0) - 2 * (q0 * q0 * q0 * q0)) + ((q * q) + 3 * (q0 * q0)) * (t * t))) * sqrt(t * (-2 * C1 * q * q0 - 4 * (mt * mt) * (q0 * q0) + t * QQ2)) * arcTanh((-(C1 * muFe * q) - 2 * (mt * mt) * t + muFe * q0 * t) / (sqrt(-(mt * mt) + (muFe * muFe)) * sqrt(t * (-2 * C1 * q * q0 - 4 * (mt * mt) * (q0 * q0) + t * QQ2))))) / (C1 * t * (-64 * (mt * mt) * (t * t) + (4 * C1 * q - 4 * q0 * t) * (4 * C1 * q - 4 * q0 * t))) - ((16 * (mt * mt * mt * mt) * q0 * ((q * q * q) - q * (q0 * q0)) * ((q * q * q) - q * (q0 * q0)) + (t * t * t) * (C1 * ((q * q * q) + 3 * q * (q0 * q0)) + q0 * (3 * (q * q) + (q0 * q0)) * t) - 4 * (mt * mt) * (t * t) * (C1 * ((q * q * q) + 2 * q * (q0 * q0)) + q0 * (4 * (q * q) + (q0 * q0)) * t)) * arcTanh((C1 * muFe * q - 2 * (mt * mt) * t + muFe * q0 * t) / (sqrt(-(mt * mt) + (muFe * muFe)) * sqrt(t * (2 * C1 * q * q0 - 4 * (mt * mt) * (q0 * q0) + t * QQ2))))) / (4 * C1 * (t * t) * sqrt(t * (2 * C1 * q * q0 - 4 * (mt * mt) * (q0 * q0) + t * QQ2))) + (muFe * muFe) * logabs((-2 * pf * q - 2 * muFe * q0 + t) / (2 * pf * q - 2 * muFe * q0 + t))) / 2);
+}
+
+double integ1p(double t, double q0, double q, double muFe, double pf){
+
+
+    double QQ2 = q0 * q0 + q * q;
+
+    double C1 = sqrt(t*(t - 4*(mt*mt)));
+
+	return ((-(pf*q) + (q*q0*(-2*(mt*mt) + t)*arcTanh(muFe/pf))/t + ((8*q0*t*(-2*(mt*mt) + t)*(4*(mt*mt)*(q*q) + (t*t)) - (-4*C1*q + 4*q0*t)* (4*(mt*mt)*((q*q*q*q) + (q*q)*(q0*q0) - 2*(q0*q0*q0*q0)) + ((q*q) + 3*(q0*q0))*(t*t)))* sqrt(t*(-2*C1*q*q0 - 4*(mt*mt)*(q0*q0) + t*QQ2))* arcTanh((C1*muFe*q - (2*(mt*mt) + muFe*q0)*t)/ (pf*sqrt(t*(-2*C1*q*q0 - 4*(mt*mt)*(q0*q0) + t*QQ2)))))/ (C1*t*(-64*(mt*mt)*(t*t) + (4*C1*q - 4*q0*t)*(4*C1*q - 4*q0*t))) + ((16*(mt*mt*mt*mt)*q0*((q*q*q) - q*(q0*q0))*((q*q*q) - q*(q0*q0)) + t*t*t*(C1*((q*q*q) + 3*q*(q0*q0)) + q0*(3*(q*q) + (q0*q0))*t) - 4*(mt*mt)*(t*t)*(C1*((q*q*q) + 2*q*(q0*q0)) + q0*(4*(q*q) + (q0*q0))*t))* arcTanh((-2*(mt*mt)*t - muFe*(C1*q + q0*t))/ (pf*sqrt(t*(2*C1*q*q0 - 4*(mt*mt)*(q0*q0) + t*QQ2)))))/ (4*C1*(t*t)*sqrt(t*(2*C1*q*q0 - 4*(mt*mt)*(q0*q0) + t*QQ2))) + (muFe*muFe)*logabs((2*pf*q + 2*muFe*q0 + t)/(-2*pf*q + 2*muFe*q0 + t)))/2);
+}
+
+double integ2m(double t, double q0, double q, double muFe, double pf){
+
+
+    double QQ2 = q0 * q0 + q * q;
+
+    double C1 = sqrt(t*(t - 4*(mt*mt)));
+
+	return ((2*muFe*pf*q + (4*pf*q*q0*(-2*(mt*mt) + t))/t + 2*(mt*mt)*q*arcTanh(muFe/pf) + (q*(4*(mt*mt)*((q*q*q*q) + (q*q)*(q0*q0) - 2*(q0*q0*q0*q0)) + ((q*q) + 3*(q0*q0))*(t*t))* arcTanh(muFe/pf))/(t*t) - (8*sqrt(t*(-2*C1*q*q0 - 4*(mt*mt)*(q0*q0) + t*QQ2))* ((t*t)*(4*(mt*mt)*(q*q) + (t*t))*(4*(mt*mt)*((q*q*q*q) + (q*q)*(q0*q0) - 2*(q0*q0*q0*q0)) + ((q*q) + 3*(q0*q0))*(t*t)) + q0*(4*C1*q - 4*q0*t)*(4*(mt*mt*mt*mt)*((q*q*q) - q*(q0*q0))*((q*q*q) - q*(q0*q0)) + (mt*mt)*(5*(q*q*q*q) - 2*(q*q)*(q0*q0) - 3*(q0*q0*q0*q0))*(t*t) + (t*t*t*t)*QQ2))* arcTanh((-(C1*muFe*q) - 2*(mt*mt)*t + muFe*q0*t)/(sqrt(-(mt*mt) + (muFe*muFe))* sqrt(t*(-2*C1*q*q0 - 4*(mt*mt)*(q0*q0) + t*QQ2)))))/ (C1*t*t*t*(-64*(mt*mt)*(t*t) + (4*C1*q - 4*q0*t)*(4*C1*q - 4*q0*t))) + (sqrt(t*(2*C1*q*q0 - 4*(mt*mt)*(q0*q0) + t*QQ2))* ((t*t)*(4*(mt*mt)*(q*q) + (t*t))*(4*(mt*mt)*((q*q*q*q) + (q*q)*(q0*q0) - 2*(q0*q0*q0*q0)) + ((q*q) + 3*(q0*q0))*(t*t)) - 4*q0*(C1*q + q0*t)*(4*(mt*mt*mt*mt)*((q*q*q) - q*(q0*q0))*((q*q*q) - q*(q0*q0)) + (mt*mt)*(5*(q*q*q*q) - 2*(q*q)*(q0*q0) - 3*(q0*q0*q0*q0))*(t*t) + (t*t*t*t)*QQ2))* arcTanh((C1*muFe*q - 2*(mt*mt)*t + muFe*q0*t)/(sqrt(-(mt*mt) + (muFe*muFe))* sqrt(t*(2*C1*q*q0 - 4*(mt*mt)*(q0*q0) + t*QQ2)))))/ (2*C1*t*t*t*(-4*(mt*mt)*(t*t) + (C1*q + q0*t)*(C1*q + q0*t))) + 4*muFe*muFe*muFe*logabs((-2*pf*q - 2*muFe*q0 + t)/(2*pf*q - 2*muFe*q0 + t)))/12);
+}
+
+
+double integ2p(double t, double q0, double q, double muFe, double pf){
+
+    double QQ2 = q0 * q0 + q * q;
+
+    double C1 = sqrt(t*(t - 4*(mt*mt))); 
+    return ((-2*muFe*pf*q + (4*pf*q*q0*(-2*(mt*mt) + t))/t - 2*(mt*mt)*q*arcTanh(muFe/pf) - (q*(4*(mt*mt)*((q*q*q*q) + (q*q)*(q0*q0) - 2*(q0*q0*q0*q0)) + ((q*q) + 3*(q0*q0))*(t*t))*arcTanh(muFe/pf))/(t*t) - (sqrt(t*(-2*C1*q*q0 - 4*(mt*mt)*(q0*q0) + t*QQ2))* (8*(t*t)*(4*(mt*mt)*(q*q) + (t*t))*(4*(mt*mt)*((q*q*q*q) + (q*q)*(q0*q0) - 2*(q0*q0*q0*q0)) + ((q*q) + 3*(q0*q0))*(t*t)) - 8*q0*(-4*C1*q + 4*q0*t)*(4*(mt*mt*mt*mt)*((q*q*q) - q*(q0*q0))*((q*q*q) - q*(q0*q0)) + (mt*mt)*(5*(q*q*q*q) - 2*(q*q)*(q0*q0) - 3*(q0*q0*q0*q0))*(t*t) + (t*t*t*t)*QQ2))* arcTanh((C1*muFe*q - (2*(mt*mt) + muFe*q0)*t)/ (pf*sqrt(t*(-2*C1*q*q0 - 4*(mt*mt)*(q0*q0) + t*QQ2)))))/ (C1*t*t*t*(-64*(mt*mt)*(t*t) + (4*C1*q - 4*q0*t)*(4*C1*q - 4*q0*t))) + (sqrt(t*(2*C1*q*q0 - 4*(mt*mt)*(q0*q0) + t*QQ2))* (8*(t*t)*(4*(mt*mt)*(q*q) + (t*t))*(4*(mt*mt)*((q*q*q*q) + (q*q)*(q0*q0) - 2*(q0*q0*q0*q0)) + ((q*q) + 3*(q0*q0))*(t*t)) - 32*q0*(C1*q + q0*t)*(4*(mt*mt*mt*mt)*((q*q*q) - q*(q0*q0))*((q*q*q) - q*(q0*q0)) + (mt*mt)*(5*(q*q*q*q) - 2*(q*q)*(q0*q0) - 3*(q0*q0*q0*q0))*(t*t) + (t*t*t*t)*QQ2))* arcTanh((-2*(mt*mt)*t - muFe*(C1*q + q0*t))/ (pf*sqrt(t*(2*C1*q*q0 - 4*(mt*mt)*(q0*q0) + t*QQ2)))))/ (16*C1*t*t*t*(-4*(mt*mt)*(t*t) + (C1*q + q0*t)*(C1*q + q0*t))) + 4*muFe*muFe*muFe*logabs((2*pf*q + 2*muFe*q0 + t)/(-2*pf*q + 2*muFe*q0 + t)))/12);
+}
