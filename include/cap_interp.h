@@ -1,3 +1,6 @@
+#ifndef CAPINT_H
+#define CAPINT_H
+
 double n0; // central electron number density
 double muFe0; // central electron chemical potential
 double RS; // Star radius
@@ -10,3 +13,5 @@ double Binterp(double x, int npts);
 double muFeinterp(double x, int npts);
 double nEinterp(double x, int npts);
 double mstarInterp(double Bin, double mufin, int oper);
+
+#endif

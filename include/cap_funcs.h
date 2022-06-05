@@ -1,3 +1,6 @@
+#ifndef CAPFUNCS_H
+#define CAPFUNCS_H
+
 void display_results (char *title, double result, double error);
 void system_setup(double mT, char *WDname, char *eos_type, char *elem, char *vstar, int *np);
 double *logspace(double a, double b, int n, double u[]);
@@ -41,9 +44,11 @@ double integrandFull(double r, double uchi, double Ep, double sp, double tp, dou
 // Integrators
 double crateNoPb(double mchi, int oper, int npts);
 double crateFull(double mchi, int oper, int npts, void *cont_vars);
+double crateCollEff(double mchi, int oper, int npts, void *cont_vars);
 
 // Cross sections
 double dXS_const(double s, double t, double mchi);
 double opersdXS(double s, double t, double mchi, int num);
 
+#endif
 

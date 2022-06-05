@@ -49,6 +49,7 @@ void scan_2D_region(double mchi, int oper, int start, int end, float step);
 double crate_complete(double lmmin, double lmmax, double step);
 
 double crate_singleOp_Full(int oper, double lmmin, double lmmax, double step);
+double crate_singleOp_CollEff(int oper, double lmmin, double lmmax, double step);
 double crate_singleOp_NoPB(int oper, double lmmin, double lmmax, double step);
 double crate_singleOp_Uappx_Full(int oper, double lmmin, double lmmax, double step);
 double crate_all_Full(double lmmin, double lmmax, double step);
@@ -118,8 +119,9 @@ control_params.ct = 1.;
 //=============================================================================
 
         // crate_singleOp_NoPB(11, 4, 6., 0.2);
-        // crate_singleOp_Full(1, -3., 3., 0.2);
+        // crate_singleOp_Full(1, 0., 3., 0.2);
         // crate_singleOp_Uappx_Full(1, -3, 3., 0.2);
+        crate_singleOp_CollEff(5, 0, 3, 0.2);
 
         //  crate_all_NoPB(2., 8., 0.2);
         //  crate_all_Full(-2., 8., 0.2);
@@ -132,11 +134,11 @@ control_params.ct = 1.;
 
         // crate_complete(-2, 8, 0.2);
 
-        double soln = solnFunc(0.1, 0.2, -0.001, 1e-3, 0.1, 0.5, 10.0);
-        printf("%0.5e\n", soln);
-        double out = CollEffFF(-0.001, 1e-3, 0.1, 0.5, 10.0, soln);
+        // double soln = solnFunc(0.1, 0.2, -0.001, 1e-3, 0.1, 0.5, 10.0);
+        // printf("%0.5e\n", soln);
+        // double out = CollEffectsFF(-0.001, 1e-3, 0.1, 0.5, 10.0, soln);
 
-        printf("%0.5e\n", out);
+        // printf("%0.5e\n", out);
 
         //=============================================================================
         // RADIAL PROFILE CALCULATION
@@ -519,6 +521,42 @@ double crate_singleOp_NoPB(int oper, double lmmin, double lmmax, double step)
 
         return 0.;
 }
+
+double crate_singleOp_CollEff(int oper, double lmmin, double lmmax, double step)
+{
+
+        int i; // mass loop
+        int end = round((lmmax - lmmin) / step)+1; //number of mass points
+        double capOut[end];
+        double mchi[end];
+	int tally = 0;
+        #pragma omp parallel
+        {
+        #pragma omp for
+                for (i = 0; i <= end; i++)
+                {
+                        mchi[i] = pow(10, lmmin + step*i);
+                        capOut[i] = crateCollEff(mchi[i], oper, np, &control_params);
+                        printf("==================================\n");
+                        printf("||\t%0.2f %% complete\t||\n", tally * 100. / (end));
+                        printf("==================================\n");
+                        tally++;
+                }
+        }
+
+        char *filename = malloc(strlen("./crate_single/single_op_coll_eff_") + strlen(set_WD) + strlen(elem) +  strlen("__.dat") + 1);
+        sprintf(filename, "./crate_single/single_op_coll_eff_%s_%s.dat", set_WD, elem);
+
+        FILE *singleOp = fopen(filename, "w");
+        for(i=0; i<end; i++){
+                fprintf(singleOp, "%0.5e\t%0.5e\n", mchi[i], capOut[i]);
+        }
+        fclose(singleOp);
+        free(filename);
+
+        return 0.;
+}
+
 
 double crate_singleOp_finiteT_full(int oper, double lmmin, double lmmax, double temp, double step)
 {

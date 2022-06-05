@@ -10,6 +10,6 @@ double integ2p(double t, double q0, double q, double muFe, double pf);
 
 double ImPiL_degen(double t, double q0, double q, double muFe);
 double RePiL_degen(double t, double q0, double q, double muFe);
-double CollEffFF(double t, double uchi, double mchi, double B, double muFe, double soln);
+double CollEffectsFF(double t, double uchi, double mchi, double B, double muFe, double soln);
 
 #endif

@@ -1,3 +1,6 @@
+#ifndef GLOBALS_H
+#define GLOBALS_H
+
 double mt;
 
 //unit conversions
@@ -48,3 +51,5 @@ struct radprof_params {double rad; double mchi; int oper; int npts;};
 // Control Variables
 // static const double k0 = 0.0005;
 // static const double z0 = 0.05;
+
+#endif

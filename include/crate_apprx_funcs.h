@@ -1,3 +1,6 @@
+#ifndef CAPAPPROX_H
+#define CAPAPPROX_H
+
 // General Funcs
 double CoeffUappx(double mchi);
 double int_rate_high(double mchi, double B, double muf, int oper);
@@ -15,3 +18,5 @@ double test_integrand(double r, double Eu, double s, double t, double muFe, doub
 // Integrators
 double crateUappxFull(double mchi, int oper, int npts, void *cont_vars);
 double crateUappxNoPb(double mchi, int oper, int npts);
+
+#endif
