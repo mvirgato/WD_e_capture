@@ -11,7 +11,7 @@ First complie the code with make, then run the run_capelec.exe with the EoS numb
     make
     ./bin/run_capelec
 
-which runs the code for the default $1.38367\; M_\odot$ WD on half the system cores.
+which runs the code for the default $1.38367 M_\odot$ WD on half the system cores.
 
 OR
 
@@ -21,7 +21,7 @@ just run
 
 which handles everything.
 
-There is also a python script to do the same thing, but can take the input 'log' to log terminal outputs to **/logs/term_err.txt** and **/logs/term_out.txt**
+There is also a python script to do the same thing, but can take the input '*log*' to write the terminal outputs to **/logs/term_err.txt** and **/logs/term_out.txt** for error and output messages respectivly.
 
     python3 py_run.py log
 
