@@ -39,6 +39,5 @@ module load gsl/2.5
 
 
 # The job command(s):
-rm *.o
-rm run_capelec
+make clean
 make

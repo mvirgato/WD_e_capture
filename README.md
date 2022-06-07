@@ -1,8 +1,8 @@
 Dark matter capture on electrons in White Dwarfs
+# Capture in Compact objects
+## Specialised to electrons in White Dwarfs
 
-================================================================
-Code Compilation
-================================================================
+## Code Compilation
 
 Use:
 First complie the code with make, then run the run_capelec.exe with the EoS number as input i.e.
@@ -14,25 +14,25 @@ which runs the code for the default 1.38367 M_sun WD on half the system cores.
 
 OR 
 
-just run 
+just run
+
     ./comp_cap
+
 for the same resuls.
 
 There is also a python script to do the same thing, but can take the input 'log' to log terminal outputs to /logs/term_err.txt and /logs/term_out.txt
 
     python3 py_run.py log
 
-================================================================
-Using the C code
-================================================================
+## Using the C code
 
 Use the routines in the main file to generate the relevent profiles:
 
-    for all operators:
-        input: Log10(m_chi_MIN), Log10(m_chi_MAX), step size
+for all operators:
+Item input: Log10(m_chi_MIN), Log10(m_chi_MAX), step size
 
-    for single operators:
-        input: Operator number (11 for constant XS), Log10(m_chi_MIN), Log10(m_chi_MAX), step size
+for single operators:
+Item input: Operator number (11 for constant XS), Log10(m_chi_MIN), Log10(m_chi_MAX), step size
 
 If running on Spartan (or other cluster with OpenMP), make sure the variable USE_SPARTAN is set to 1.
 Else set to 0, with default number of cores set to half the system maximum. 

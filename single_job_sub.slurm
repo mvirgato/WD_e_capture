@@ -39,4 +39,4 @@ module load gsl/2.5
 module load openmpi/3.1.4
 
 export OMP_NUM_THREADS=$SLURM_CPUS_PER_TASK
-time ./run_capelec 0 1
+time ./bin/run_capelec 0 1
