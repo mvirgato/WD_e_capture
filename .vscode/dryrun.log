@@ -1,0 +1,7 @@
+make --dry-run --keep-going --print-directory
+make: Entering directory '/home/student.unimelb.edu.au/mvirgato/WD_e_capture'
+gcc-9 -O3 -fopenmp -Iinclude -MMD -MP -c src/collective_effects.c -o obj/collective_effects.o
+ 
+gcc-9 -O3 -fopenmp -o bin/run_capelec obj/evap_funcs.o obj/cap_interp.o obj/finite_T.o obj/elec_wd_main.o obj/multiscatter.o obj/crate_apprx_funcs.o obj/collective_effects.o obj/cap_funcs.o -lgsl -lgslcblas -lm
+make: Leaving directory '/home/student.unimelb.edu.au/mvirgato/WD_e_capture'
+ 
