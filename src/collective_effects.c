@@ -125,7 +125,7 @@ double CollEffectsFF(double t, double uchi, double mchi, double B, double muFe, 
 
     // Fudge Factor to account for collective effects
 
-    double RePiL = 0.0; // RePiL_degen(t, q0, q, muFe);
+    double RePiL = RePiL_degen(t, q0, q, muFe);
     double ImPiL = ImPiL_degen(t, q0, q, muFe);
 
     // printf("%0.5e\t%0.5e\n", RePiL, ImPiL);
@@ -133,11 +133,11 @@ double CollEffectsFF(double t, double uchi, double mchi, double B, double muFe, 
     double denom = ((RePiL - t) * (RePiL - t) + ImPiL*ImPiL);
 
     double res = t * t / denom;
-    if (res > 1.0){
-        printf("%0.5e\n", res);
-    }
+    // if (res > 1.0){
+    //     printf("%0.5e\n", res);
+    // }
 
-    return 1; // missing kappa
+    return res; // missing kappa
 }
 
 // Analytic expressions for integrals
