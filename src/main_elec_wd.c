@@ -119,7 +119,7 @@ control_params.ct = 1.;
 //=============================================================================
 
         // crate_singleOp_NoPB(11, 4, 6., 0.2);
-        crate_singleOp_Full(5, 0., 4., 0.2);
+        // crate_singleOp_Full(5, 0., 4., 0.2);
         // crate_singleOp_Uappx_Full(1, -3, 3., 0.2);
         crate_singleOp_CollEff(5, 0, 4, 0.2);
 
@@ -172,6 +172,9 @@ control_params.ct = 1.;
         // double out2 = crateFull_T(mchi, Tstar, oper, np, &control_params);
 
         // printf("%f\n", out2out1);
+
+        // double out = Zr(1);
+        // printf("%0.5e\n", out);
 //=============================================================================
 //=============================================================================
 

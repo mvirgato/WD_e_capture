@@ -335,7 +335,7 @@ double integrandCollEff(double r, double Ep, double sp, double tp, double muFe, 
     // printf("%0.5e\n",tp);
     double soln = solnFunc(Eu, s, t, 0, mchi, B, muFe);
     // * HeavisidePhaseSpace(Eu, s, B, s1, s2)
-    double int_main = CollEffectsFF(t, 0, mchi, B, muFe, soln) * (r * r * zeta(nE, muFe) * Eu * s * opersdXS(s, t, mchi, oper) * HeavisidePB(Eu, s, t, 0, mchi, B, muFe, soln) / beta_cap(s, mchi) / gamma_cap(s, mchi) / sqrt(B));
+    double int_main = CollEffectsFF(t, 0, mchi, B, muFe, nE, soln) * (r * r * zeta(nE, muFe) * Eu * s * opersdXS(s, t, mchi, oper) * HeavisidePB(Eu, s, t, 0, mchi, B, muFe, soln) / beta_cap(s, mchi) / gamma_cap(s, mchi) / sqrt(B));
 
     // printf("%0.5e\t%0.5e\t%0.5e\t%0.5e\n", Eu, B, s1);
 

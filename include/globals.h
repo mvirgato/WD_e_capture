@@ -1,6 +1,12 @@
 #ifndef GLOBALS_H
 #define GLOBALS_H
 
+static double sqrarg;
+#define SQR(a) ((sqrarg = (a)) == 0.0 ? 0.0 : sqrarg * sqrarg)
+
+static double cubarg;
+#define CUB(a) ((cubarg = (a)) == 0.0 ? 0.0 : cubarg * cubarg * cubarg)
+
 double mt;
 
 //unit conversions
