@@ -149,7 +149,7 @@ double CollEffectsFF(double t, double uchi, double mchi, double B, double muFe, 
     // Fudge Factor to account for collective effects
 
     double RePiL = RePiL_degen_approx(t, q0, q, muFe) + RePiL_dnr(t, q0, q, nE);
-    double ImPiL = ImPiL_degen(t, q0, q, muFe) + RePiL_dnr(t, q0, q, nE);
+    double ImPiL = ImPiL_degen(t, q0, q, muFe) + ImPiL_dnr(t, q0, q, nE);
 
     // printf("%0.5e\n", RePiL_degen_approx(t, q0, q, muFe) / RePiL_degen(t, q0, q, muFe));
 
@@ -246,7 +246,7 @@ double RePiL_dnr(double t, double q0, double q, double nE)
     double s = sqrt(T / m);
     double xi = q0 / (sqrt(2) * q * s);
     double qp = t / (2 * q0 * m);
-    return (((SQR(echarge) * SQR(Z) * nE) / (sqrt(2) * q * s)) * (Zr(xi * (1 + qp)) - Zr(xi * (1 - qp))));
+    return (((SQR(echarge) * SQR(Z) * nE) / (sqrt(2) * q * s)) * (Zr(xi * (1.0 + qp)) - Zr(xi * (1.0 - qp))));
 }
 
 double ImPiL_dnr(double t, double q0, double q, double nE)
@@ -258,5 +258,5 @@ double ImPiL_dnr(double t, double q0, double q, double nE)
     double xi = q0 / (sqrt(2) * q * s);
     double qp = t / (2 * q0 * m);
 
-    return (((SQR(echarge) * SQR(Z) * nE) / (sqrt(2) * q * s)) * (Zi(xi * (1 + qp)) - Zi(xi * (1 - qp))));
+    return (((SQR(echarge) * SQR(Z) * nE) / (sqrt(2) * q * s)) * (Zi(xi * (1.0 + qp)) - Zi(xi * (1.0 - qp))));
 }

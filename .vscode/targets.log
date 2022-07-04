@@ -1,12 +1,12 @@
 make all --print-data-base --no-builtin-variables --no-builtin-rules --question
-# GNU Make 4.1
+# GNU Make 4.2.1
 # Built for x86_64-pc-linux-gnu
-# Copyright (C) 1988-2014 Free Software Foundation, Inc.
+# Copyright (C) 1988-2016 Free Software Foundation, Inc.
 # License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Mon Jun  6 18:14:00 2022
+# Make data base, printed on Mon Jul  4 14:45:33 2022
 
 # Variables
 
@@ -15,53 +15,37 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # automatic
 ?F = $(notdir $?)
 # environment
-DESKTOP_SESSION = ubuntu
-# environment
-JUPYTER_PATH = /usr/local/root/etc/notebook
+WSLENV = ELECTRON_RUN_AS_NODE/w:WT_SESSION::WT_PROFILE_ID
 # default
 .SHELLFLAGS := -c
 # makefile (from 'makefile', line 38)
-OBJ := obj/evap_funcs.o obj/cap_interp.o obj/finite_T.o obj/elec_wd_main.o obj/multiscatter.o obj/crate_apprx_funcs.o obj/collective_effects.o obj/cap_funcs.o
+OBJ := obj/evap_funcs.o obj/cap_interp.o obj/finite_T.o obj/multiscatter.o obj/crate_apprx_funcs.o obj/main_elec_wd.o obj/collective_effects.o obj/cap_funcs.o
 # makefile (from 'makefile', line 37)
-SRC := src/evap_funcs.c src/cap_interp.c src/finite_T.c src/elec_wd_main.c src/multiscatter.c src/crate_apprx_funcs.c src/collective_effects.c src/cap_funcs.c
-# environment
-XDG_SESSION_TYPE = x11
+SRC := src/evap_funcs.c src/cap_interp.c src/finite_T.c src/multiscatter.c src/crate_apprx_funcs.c src/main_elec_wd.c src/collective_effects.c src/cap_funcs.c
 # environment
 VSCODE_LOG_NATIVE = false
 # automatic
 ?D = $(patsubst %/,%,$(dir $?))
-# environment
-IM_CONFIG_PHASE = 2
 # automatic
 @D = $(patsubst %/,%,$(dir $@))
-# environment
-XAUTHORITY = /home/student.unimelb.edu.au/mvirgato/.Xauthority
-# environment
-GDMSESSION = ubuntu
-# environment
-XMODIFIERS = @im=ibus
+# makefile (from 'makefile', line 36)
+EXE := bin/run_capelec
+# automatic
+@F = $(notdir $@)
+# makefile (from 'makefile', line 44)
+LDLIBS := -lgsl -lgslcblas -lm
 # makefile
-CURDIR := /home/student.unimelb.edu.au/mvirgato/WD_e_capture
+CURDIR := /home/mvirgato/WD_e_capture
 # makefile
 SHELL = /bin/sh
 # environment
-GDM_LANG = en_AU
+VSCODE_NLS_CONFIG = {"locale":"en","availableLanguages":{}}
 # environment
-VTE_VERSION = 5202
-# environment
-VSCODE_NLS_CONFIG = {"locale":"en-gb","availableLanguages":{},"_languagePackSupport":true}
-# environment
-_ = /usr/bin/code
+_ = /mnt/c/Program Files/Microsoft VS Code/bin/code
 # makefile (from 'makefile', line 42)
 CFLAGS := -O3 -fopenmp
-# environment
-XDG_CONFIG_DIRS = /etc/xdg/xdg-ubuntu:/etc/xdg
 # makefile (from 'obj/cap_funcs.d', line 1)
-MAKEFILE_LIST :=  makefile obj/evap_funcs.d obj/cap_interp.d obj/finite_T.d obj/elec_wd_main.d obj/multiscatter.d obj/crate_apprx_funcs.d obj/cap_funcs.d
-# automatic
-@F = $(notdir $@)
-# environment
-GIO_LAUNCHED_DESKTOP_FILE = /usr/share/applications/terminator.desktop
+MAKEFILE_LIST :=  makefile obj/evap_funcs.d obj/cap_interp.d obj/finite_T.d obj/multiscatter.d obj/crate_apprx_funcs.d obj/main_elec_wd.d obj/collective_effects.d obj/cap_funcs.d
 # 'override' directive
 GNUMAKEFLAGS := 
 # makefile (from 'makefile', line 33)
@@ -69,171 +53,89 @@ OBJ_DIR := obj
 # makefile (from 'makefile', line 41)
 CXXFLAGS := -MMD -MP
 # environment
-MANDATORY_PATH = /usr/share/gconf/ubuntu.mandatory.path
-# environment
-XDG_DATA_DIRS = /usr/share/ubuntu:/usr/local/share:/usr/share:/var/lib/snapd/desktop
-# environment
-ROOTSYS = /usr/local/root
-# environment
-DBUS_SESSION_BUS_ADDRESS = unix:path=/run/user/1512424576/bus
+XDG_DATA_DIRS = /usr/local/share:/usr/share:/var/lib/snapd/desktop
 # environment
 VSCODE_VERBOSE_LOGGING = true
 # environment
-TERMINATOR_UUID = urn:uuid:7f6377a8-1c63-40d8-bf13-8e8493bbd717
-# environment
-CLUTTER_IM_MODULE = xim
-# environment
 LESSOPEN = | /usr/bin/lesspipe %s
 # environment
-VSCODE_CWD = /home/student.unimelb.edu.au/mvirgato/WD_e_capture
-# environment
-HISTCONTROL = ignoreboth
-# environment
-XDG_SESSION_PATH = /org/freedesktop/DisplayManager/Session0
-# environment
-KRB5CCNAME = KEYRING:persistent:1512424576
+VSCODE_CWD = /mnt/c/Program Files/Microsoft VS Code
 # default
 MAKE_HOST := x86_64-pc-linux-gnu
 # environment
-PATH = /home/student.unimelb.edu.au/mvirgato/anaconda3/condabin:/usr/local/root/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/opt/puppetlabs/bin:/usr/local/Wolfram/Mathematica/12.0/Executables:/home/student.unimelb.edu.au/mvirgato/.local/bin
+PATH = /home/mvirgato/.vscode-server/bin/30d9c6cd9483b2cc586687151bcbcd635f373630/bin/remote-cli:/home/mvirgato/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/usr/lib/wsl/lib:/mnt/c/windows/system32:/mnt/c/windows:/mnt/c/windows/System32/Wbem:/mnt/c/windows/System32/WindowsPowerShell/v1.0/:/mnt/c/windows/System32/OpenSSH/:/mnt/c/Program Files/PuTTY/:/mnt/c/Program Files/Microsoft VS Code/bin:/mnt/c/Program Files/Wolfram Research/WolframScript/:/mnt/c/Users/micha/AppData/Local/Microsoft/WindowsApps:/snap/bin
 # environment
-GPG_AGENT_INFO = /run/user/1512424576/gnupg/S.gpg-agent:0:1
-# environment
-SESSION_MANAGER = local/6400d-203327-l.mobility.unimelb.net.au:@/tmp/.ICE-unix/4324,unix/6400d-203327-l.mobility.unimelb.net.au:/tmp/.ICE-unix/4324
-# environment
-XDG_RUNTIME_DIR = /run/user/1512424576
-# environment
-TEXTDOMAIN = im-config
-# environment
-XDG_MENU_PREFIX = gnome-
+XDG_RUNTIME_DIR = /mnt/wslg/runtime-dir
 # environment
 VSCODE_LOG_STACK = false
 # environment
-ELECTRON_RUN_AS_NODE = 1
+VSCODE_IPC_HOOK_CLI = /mnt/wslg/runtime-dir/vscode-ipc-4a2b0437-848d-4ca9-9fe3-757d32c0b45c.sock
 # makefile (from 'makefile', line 43)
 LDFLAGS := -Llib
-# makefile (from 'makefile', line 44)
-LDLIBS := -lgsl -lgslcblas -lm
 # default
 .FEATURES := target-specific order-only second-expansion else-if shortest-stem undefine oneshell archives jobserver output-sync check-symlink load
 # environment
-CMAKE_PREFIX_PATH = /usr/local/root
-# environment
-XDG_GREETER_DATA_DIR = /var/lib/lightdm-data/mvirgato
-# environment
-LS_COLORS = rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.Z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:
-# environment
-SHLIB_PATH = /usr/local/root/lib
-# environment
-XDG_SESSION_DESKTOP = ubuntu
-# environment
-SSH_AUTH_SOCK = /run/user/1512424576/keyring/ssh
-# environment
-GIO_LAUNCHED_DESKTOP_FILE_PID = 14561
-# environment
-CLING_STANDARD_PCH = none
+LS_COLORS = rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:
 # automatic
 %F = $(notdir $%)
 # environment
 DISPLAY = :0
 # environment
-CONDA_EXE = /home/student.unimelb.edu.au/mvirgato/anaconda3/bin/conda
-# environment
-GTK_IM_MODULE = ibus
-# environment
 VSCODE_PIPE_LOGGING = true
 # environment
-PWD = /home/student.unimelb.edu.au/mvirgato/WD_e_capture
+PWD = /home/mvirgato/WD_e_capture
+# default
+.LOADED := 
 # environment
-XDG_SEAT = seat0
+WSL_INTEROP = /run/WSL/31747_interop
 # environment
-SSH_AGENT_PID = 4520
+PULSE_SERVER = /mnt/wslg/PulseServer
 # environment
-ORIGINAL_XDG_CURRENT_DESKTOP = ubuntu:GNOME
-# environment
-GTK_MODULES = gail:atk-bridge
-# environment
-MANPATH = /usr/local/root/man::/opt/puppetlabs/puppet/share/man
+WT_SESSION = b61d39ea-a842-4747-84d7-6fa338ee278c
 # environment
 VSCODE_AMD_ENTRYPOINT = vs/workbench/api/node/extensionHostProcess
 # environment
-HOME = /home/student.unimelb.edu.au/mvirgato
-# environment
-DYLD_LIBRARY_PATH = /usr/local/root/lib
+HOME = /home/mvirgato
 # environment
 LESSCLOSE = /usr/bin/lesspipe %s %s
 # environment
-VSCODE_CLI = 1
-# environment
-VSCODE_CODE_CACHE_PATH = /home/student.unimelb.edu.au/mvirgato/.config/Code/CachedData/c3511e6c69bb39013c4a4b7b9566ec1ca73fc4d5
-# environment
 LOGNAME = mvirgato
 # environment
-APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL = 1
-# environment
-ELECTRON_NO_ATTACH_CONSOLE = 1
+APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL = true
 # environment
 VSCODE_HANDLES_UNCAUGHT_ERRORS = true
-# default
-MAKE_VERSION := 4.1
-# environment
-GNOME_DESKTOP_SESSION_ID = this-is-deprecated
 # automatic
 ^D = $(patsubst %/,%,$(dir $^))
 # environment
-XDG_VTNR = 7
-# environment
 MAKELEVEL := 0
-# environment
-COLORTERM = truecolor
 # default
 MAKE = $(MAKE_COMMAND)
 # default
 MAKECMDGOALS := all
 # environment
-QT_IM_MODULE = ibus
-# environment
 SHLVL = 1
 # makefile (from 'makefile', line 31)
 CC = gcc-9
-# environment
-LIBPATH = /usr/local/root/lib
-# environment
-GNOME_SHELL_SESSION_MODE = ubuntu
-# environment
-VSCODE_IPC_HOOK_EXTHOST = /run/user/1512424576/vscode-ipc-30e909dc-b37c-445b-909a-a7aae42840d0.sock
-# environment
-XDG_SESSION_ID = c2
+# default
+MAKE_VERSION := 4.2.1
 # environment
 USER = mvirgato
 # makefile
 .DEFAULT_GOAL := all
 # environment
-XDG_CURRENT_DESKTOP = Unity
+NAME = Code
 # automatic
 %D = $(patsubst %/,%,$(dir $%))
 # environment
-CONDA_SHLVL = 0
+VSCODE_WSL_EXT_LOCATION = /mnt/c/Users/micha/.vscode/extensions/ms-vscode-remote.remote-wsl-0.66.3
 # default
 MAKE_COMMAND := make
 # makefile (from 'makefile', line 40)
 INC = -Iinclude
-# environment
-OLDPWD = /home/student.unimelb.edu.au/mvirgato
-# environment
-TERMINATOR_DBUS_PATH = /net/tenshu/Terminator2
 # default
 .VARIABLES := 
 # automatic
 *F = $(notdir $*)
-# environment
-LANGUAGE = en_AU
-# environment
-XDG_SEAT_PATH = /org/freedesktop/DisplayManager/Seat0
-# environment
-VSCODE_IPC_HOOK = /run/user/1512424576/vscode-16db64d1-1.67.2-main.sock
-# environment
-PYTHONPATH = /usr/local/root/lib
 # makefile
 MAKEFLAGS = pqrR
 # environment
@@ -242,18 +144,12 @@ MFLAGS = -pqrR
 *D = $(patsubst %/,%,$(dir $*))
 # automatic
 +D = $(patsubst %/,%,$(dir $+))
-# environment
-GDK_BACKEND = x11
 # automatic
 +F = $(notdir $+)
 # environment
-NO_AT_BRIDGE = 1
+VSCODE_HANDLES_SIGPIPE = true
 # environment
-QT_ACCESSIBILITY = 1
-# environment
-DEFAULTS_PATH = /usr/share/gconf/ubuntu.default.path
-# environment
-TEXTDOMAINDIR = /usr/share/locale/
+WT_PROFILE_ID = {5a069d55-87bd-57cf-8a07-2726b203d3e5}
 # default
 MAKEFILES := 
 # makefile (from 'makefile', line 32)
@@ -265,40 +161,27 @@ BIN_DIR := bin
 # environment
 LC_ALL = C
 # environment
-CONDA_PYTHON_EXE = /home/student.unimelb.edu.au/mvirgato/anaconda3/bin/python
-# environment
-QT4_IM_MODULE = xim
-# environment
-GJS_DEBUG_TOPICS = JS ERROR;JS LOG
+HOSTTYPE = x86_64
 # automatic
 ^F = $(notdir $^)
 # default
 SUFFIXES := 
 # environment
-_CE_M = 
- 
-# environment
-CHROME_DESKTOP = code-url-handler.desktop
+WAYLAND_DISPLAY = wayland-0
 # default
 .INCLUDE_DIRS = /usr/include /usr/local/include /usr/include
-# environment
-GJS_DEBUG_OUTPUT = stderr
 # default
 .RECIPEPREFIX := 
-# makefile (from 'makefile', line 36)
-EXE := bin/run_capelec
 # environment
 LANG = C
 # environment
 TERM = xterm-256color
 # environment
-TERMINATOR_DBUS_NAME = net.tenshu.Terminator20x1a6021154d881c
+VSCODE_EXTHOST_WILL_SEND_SOCKET = true
 # environment
-VSCODE_PID = 15565
-# environment
-_CE_CONDA = 
+WSL_DISTRO_NAME = Ubuntu-20.04
 # variable set hash-table stats:
-# Load=143/1024=14%, Rehash=0, Collisions=21/204=10%
+# Load=85/1024=8%, Rehash=0, Collisions=7/141=5%
 
 # Pattern-specific Variable Values
 
@@ -306,10 +189,10 @@ _CE_CONDA =
 
 # Directories
 
-# . (device 62, inode 38878036): 30 files, no impossibilities.
-# src (device 62, inode 7446696): 10 files, no impossibilities.
+# . (device 2080, inode 9033): 31 files, no impossibilities.
+# src (device 2080, inode 45711): 10 files, no impossibilities.
 
-# 40 files, no impossibilities in 2 directories.
+# 41 files, no impossibilities in 2 directories.
 
 # Implicit Rules
 
@@ -327,23 +210,31 @@ all: bin/run_capelec
 #  Implicit rule search has not been done.
 #  File does not exist.
 #  File has been updated.
-#  Needs to be updated (-q is set).
-# variable set hash-table stats:
-# Load=0/32=0%, Rehash=0, Collisions=0/7=0%
+#  Successfully updated.
 
 bin:
 #  Implicit rule search has not been done.
-#  Modification time never checked.
-#  File has not been updated.
+#  Last modified 2022-06-17 16:33:58.360085332
+#  File has been updated.
+#  Successfully updated.
 #  recipe to execute (from 'makefile', line 57):
 	mkdir -p $@
 
 # Not a target:
 obj/evap_funcs.d:
 #  Implicit rule search has been done.
-#  Last modified 2022-06-06 17:55:29.702902
+#  Last modified 2022-06-17 16:33:56.270085305
 #  File has been updated.
 #  Successfully updated.
+
+obj/main_elec_wd.o: src/main_elec_wd.c src/main_elec_wd.c include/globals.h include/cap_interp.h include/cap_funcs.h include/crate_apprx_funcs.h include/finite_T.h include/multiscatter.h include/collective_effects.h | obj
+#  Implicit rule search has been done.
+#  Implicit/static pattern stem: 'main_elec_wd'
+#  Last modified 2022-06-17 16:33:57.540085322
+#  File has been updated.
+#  Successfully updated.
+#  recipe to execute (from 'makefile', line 54):
+	$(CC) $(CFLAGS) $(INC) $(CXXFLAGS) -c $< -o $@
 
 .PHONY: all clean
 #  Implicit rule search has not been done.
@@ -352,46 +243,54 @@ obj/evap_funcs.d:
 
 include/globals.h:
 #  Implicit rule search has been done.
-#  Last modified 2022-06-06 17:42:06.031941
+#  Last modified 2022-06-17 16:24:37.680077993
 #  File has been updated.
 #  Successfully updated.
 
 include/multiscatter.h:
 #  Implicit rule search has been done.
-#  Last modified 2022-06-06 17:42:14.651952
+#  Last modified 2022-06-17 16:24:37.680077993
 #  File has been updated.
 #  Successfully updated.
 
 # Not a target:
 src/multiscatter.c:
 #  Implicit rule search has been done.
-#  Last modified 2022-06-06 16:20:39.859332
+#  Last modified 2022-06-17 16:24:38.040077998
 #  File has been updated.
 #  Successfully updated.
 
 include/cap_funcs.h:
 #  Implicit rule search has been done.
-#  Last modified 2022-06-06 17:40:37.401971
+#  Last modified 2022-06-17 16:24:37.680077993
+#  File has been updated.
+#  Successfully updated.
+
+include/collective_effects.h:
+#  Implicit rule search has been done.
+#  Last modified 2022-06-17 16:24:37.680077993
 #  File has been updated.
 #  Successfully updated.
 
 # Not a target:
 src/cap_funcs.c:
-#  Implicit rule search has not been done.
-#  Modification time never checked.
-#  File has not been updated.
+#  Implicit rule search has been done.
+#  Last modified 2022-06-17 16:24:38.040077998
+ 
+#  File has been updated.
+#  Successfully updated.
 
 # Not a target:
 src/collective_effects.c:
 #  Implicit rule search has been done.
-#  Last modified 2022-06-06 18:14:00.730872
+#  Last modified 2022-06-17 16:24:38.040077998
 #  File has been updated.
 #  Successfully updated.
 
 obj/finite_T.o: src/finite_T.c src/finite_T.c include/globals.h include/finite_T.h include/cap_funcs.h include/crate_apprx_funcs.h include/cap_interp.h | obj
 #  Implicit rule search has been done.
 #  Implicit/static pattern stem: 'finite_T'
-#  Last modified 2022-06-06 17:55:30.007919
+#  Last modified 2022-06-17 16:33:56.67008531
 #  File has been updated.
 #  Successfully updated.
 #  recipe to execute (from 'makefile', line 54):
@@ -400,28 +299,28 @@ obj/finite_T.o: src/finite_T.c src/finite_T.c include/globals.h include/finite_T
 # Not a target:
 obj/cap_interp.d:
 #  Implicit rule search has been done.
-#  Last modified 2022-06-06 17:55:29.841888
-#  File has been updated.
-#  Successfully updated.
-
-# Not a target:
-obj/elec_wd_main.d:
-#  Implicit rule search has been done.
-#  Last modified 2022-06-06 17:55:30.359885
+#  Last modified 2022-06-17 16:33:56.430085307
 #  File has been updated.
 #  Successfully updated.
 
 # Not a target:
 makefile:
 #  Implicit rule search has been done.
-#  Last modified 2022-06-06 17:55:18.347913
+#  Last modified 2022-06-17 16:24:37.990077997
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+src/main_elec_wd.c:
+#  Implicit rule search has been done.
+#  Last modified 2022-06-17 16:24:38.040077998
 #  File has been updated.
 #  Successfully updated.
 
 obj/evap_funcs.o: src/evap_funcs.c src/evap_funcs.c include/globals.h include/cap_funcs.h include/cap_interp.h include/evap_funcs.h | obj
 #  Implicit rule search has been done.
 #  Implicit/static pattern stem: 'evap_funcs'
-#  Last modified 2022-06-06 17:55:29.70989
+#  Last modified 2022-06-17 16:33:56.280085305
 #  File has been updated.
 #  Successfully updated.
 #  recipe to execute (from 'makefile', line 54):
@@ -430,13 +329,13 @@ obj/evap_funcs.o: src/evap_funcs.c src/evap_funcs.c include/globals.h include/ca
 # Not a target:
 obj/crate_apprx_funcs.d:
 #  Implicit rule search has been done.
-#  Last modified 2022-06-06 17:55:30.585926
+#  Last modified 2022-06-17 16:33:56.920085314
 #  File has been updated.
 #  Successfully updated.
 
 obj:
 #  Implicit rule search has not been done.
-#  Last modified 2022-06-06 17:55:30.788904
+#  Last modified 2022-06-17 16:33:58.250085331
 #  File has been updated.
 #  Successfully updated.
 #  recipe to execute (from 'makefile', line 57):
@@ -444,31 +343,29 @@ obj:
 
 include/finite_T.h:
 #  Implicit rule search has been done.
-#  Last modified 2022-06-06 16:43:27.116197
+#  Last modified 2022-06-17 16:24:37.680077993
 #  File has been updated.
 #  Successfully updated.
 
 # Not a target:
 src/finite_T.c:
 #  Implicit rule search has been done.
-#  Last modified 2022-06-06 16:20:38.678292
+#  Last modified 2022-06-17 16:24:38.040077998
 #  File has been updated.
 #  Successfully updated.
 
-bin/run_capelec: obj/evap_funcs.o obj/cap_interp.o obj/finite_T.o obj/elec_wd_main.o obj/multiscatter.o obj/crate_apprx_funcs.o obj/collective_effects.o obj/cap_funcs.o | bin
+bin/run_capelec: obj/evap_funcs.o obj/cap_interp.o obj/finite_T.o obj/multiscatter.o obj/crate_apprx_funcs.o obj/main_elec_wd.o obj/collective_effects.o obj/cap_funcs.o | bin
 #  Implicit rule search has not been done.
-#  Last modified 2022-06-06 17:55:30.871929
+#  Last modified 2022-06-17 16:33:58.410085333
 #  File has been updated.
-#  Needs to be updated (-q is set).
-# variable set hash-table stats:
-# Load=0/32=0%, Rehash=0, Collisions=0/7=0%
+#  Successfully updated.
 #  recipe to execute (from 'makefile', line 51):
 	$(CC) $(CFLAGS) -o $@ $^ $(LDLIBS)
 
 obj/cap_interp.o: src/cap_interp.c src/cap_interp.c include/globals.h include/cap_interp.h | obj
 #  Implicit rule search has been done.
 #  Implicit/static pattern stem: 'cap_interp'
-#  Last modified 2022-06-06 17:55:29.853886
+#  Last modified 2022-06-17 16:33:56.440085307
 #  File has been updated.
 #  Successfully updated.
 #  recipe to execute (from 'makefile', line 54):
@@ -483,45 +380,36 @@ obj/cap_interp.o: src/cap_interp.c src/cap_interp.c include/globals.h include/ca
 # Not a target:
 obj/multiscatter.d:
 #  Implicit rule search has been done.
-#  Last modified 2022-06-06 17:55:30.457034
+#  Last modified 2022-06-17 16:33:56.720085311
 #  File has been updated.
 #  Successfully updated.
-
-obj/elec_wd_main.o: src/elec_wd_main.c src/elec_wd_main.c include/globals.h include/cap_interp.h include/cap_funcs.h include/crate_apprx_funcs.h include/finite_T.h include/multiscatter.h | obj
-#  Implicit rule search has been done.
-#  Implicit/static pattern stem: 'elec_wd_main'
-#  Last modified 2022-06-06 17:55:30.381908
-#  File has been updated.
-#  Successfully updated.
-#  recipe to execute (from 'makefile', line 54):
-	$(CC) $(CFLAGS) $(INC) $(CXXFLAGS) -c $< -o $@
 
 include/evap_funcs.h:
 #  Implicit rule search has been done.
-#  Last modified 2022-06-06 16:38:02.198207
+#  Last modified 2022-06-17 16:24:37.680077993
 #  File has been updated.
 #  Successfully updated.
 
 # Not a target:
 src/evap_funcs.c:
 #  Implicit rule search has been done.
-#  Last modified 2022-06-06 16:33:31.941233
+#  Last modified 2022-06-17 16:24:38.040077998
 #  File has been updated.
 #  Successfully updated.
 
 # Not a target:
 obj/cap_funcs.d:
 #  Implicit rule search has been done.
-#  Last modified 2022-06-06 17:55:30.784908
+#  Last modified 2022-06-17 16:33:58.240085331
 #  File has been updated.
 #  Successfully updated.
 
 # Not a target:
 obj/collective_effects.d:
 #  Implicit rule search has been done.
-#  File does not exist.
+#  Last modified 2022-06-17 16:33:57.850085326
 #  File has been updated.
-#  Failed to be updated.
+#  Successfully updated.
 
 clean:
 #  Phony target (prerequisite of .PHONY).
@@ -534,7 +422,7 @@ clean:
 obj/crate_apprx_funcs.o: src/crate_apprx_funcs.c src/crate_apprx_funcs.c include/globals.h include/cap_funcs.h include/crate_apprx_funcs.h include/cap_interp.h include/multiscatter.h | obj
 #  Implicit rule search has been done.
 #  Implicit/static pattern stem: 'crate_apprx_funcs'
-#  Last modified 2022-06-06 17:55:30.593911
+#  Last modified 2022-06-17 16:33:56.930085314
 #  File has been updated.
 #  Successfully updated.
 #  recipe to execute (from 'makefile', line 54):
@@ -542,29 +430,28 @@ obj/crate_apprx_funcs.o: src/crate_apprx_funcs.c src/crate_apprx_funcs.c include
 
 include/cap_interp.h:
 #  Implicit rule search has been done.
-#  Last modified 2022-06-06 17:46:19.837946
+#  Last modified 2022-06-17 16:24:37.680077993
 #  File has been updated.
 #  Successfully updated.
 
 # Not a target:
 src/cap_interp.c:
 #  Implicit rule search has been done.
-#  Last modified 2022-06-06 17:35:23.715977
+#  Last modified 2022-06-17 16:24:38.040077998
 #  File has been updated.
 #  Successfully updated.
 
 # Not a target:
-src/elec_wd_main.c:
- 
+obj/main_elec_wd.d:
 #  Implicit rule search has been done.
-#  Last modified 2022-06-06 16:32:45.04824
+#  Last modified 2022-06-17 16:33:57.520085321
 #  File has been updated.
 #  Successfully updated.
 
 obj/multiscatter.o: src/multiscatter.c src/multiscatter.c include/globals.h include/multiscatter.h include/cap_funcs.h include/crate_apprx_funcs.h include/cap_interp.h | obj
 #  Implicit rule search has been done.
 #  Implicit/static pattern stem: 'multiscatter'
-#  Last modified 2022-06-06 17:55:30.464958
+#  Last modified 2022-06-17 16:33:56.730085311
 #  File has been updated.
 #  Successfully updated.
 #  recipe to execute (from 'makefile', line 54):
@@ -573,69 +460,55 @@ obj/multiscatter.o: src/multiscatter.c src/multiscatter.c include/globals.h incl
 # Not a target:
 obj/finite_T.d:
 #  Implicit rule search has been done.
-#  Last modified 2022-06-06 17:55:29.99891
+#  Last modified 2022-06-17 16:33:56.66008531
 #  File has been updated.
 #  Successfully updated.
 
-obj/cap_funcs.o: src/cap_funcs.c include/globals.h include/cap_funcs.h include/cap_interp.h
-#  Implicit rule search has not been done.
-#  Modification time never checked.
-#  File has not been updated.
+obj/cap_funcs.o: src/cap_funcs.c src/cap_funcs.c include/globals.h include/cap_funcs.h include/cap_interp.h include/collective_effects.h include/crate_apprx_funcs.h | obj
+#  Implicit rule search has been done.
+#  Implicit/static pattern stem: 'cap_funcs'
+#  Last modified 2022-06-17 16:33:58.250085331
+#  File has been updated.
+#  Successfully updated.
+#  recipe to execute (from 'makefile', line 54):
+	$(CC) $(CFLAGS) $(INC) $(CXXFLAGS) -c $< -o $@
 
-obj/collective_effects.o: src/collective_effects.c | obj
+obj/collective_effects.o: src/collective_effects.c src/collective_effects.c include/globals.h include/collective_effects.h | obj
 #  Implicit rule search has been done.
 #  Implicit/static pattern stem: 'collective_effects'
-#  File does not exist.
+#  Last modified 2022-06-17 16:33:57.860085326
 #  File has been updated.
-#  Needs to be updated (-q is set).
-# automatic
-# @ := obj/collective_effects.o
-# automatic
-# % := 
-# automatic
-# * := collective_effects
-# automatic
-# + := src/collective_effects.c
-# automatic
-# | := obj
-# automatic
-# < := src/collective_effects.c
-# automatic
-# ^ := src/collective_effects.c
-# automatic
-# ? := src/collective_effects.c
-# variable set hash-table stats:
-# Load=8/32=25%, Rehash=0, Collisions=1/17=6%
+#  Successfully updated.
 #  recipe to execute (from 'makefile', line 54):
 	$(CC) $(CFLAGS) $(INC) $(CXXFLAGS) -c $< -o $@
 
 include/crate_apprx_funcs.h:
 #  Implicit rule search has been done.
-#  Last modified 2022-06-06 17:40:57.49596
+#  Last modified 2022-06-17 16:24:37.680077993
 #  File has been updated.
 #  Successfully updated.
 
 # Not a target:
 src/crate_apprx_funcs.c:
 #  Implicit rule search has been done.
-#  Last modified 2022-06-06 16:20:33.362458
+#  Last modified 2022-06-17 16:24:38.040077998
 #  File has been updated.
 #  Successfully updated.
 
 # files hash-table stats:
-# Load=40/1024=4%, Rehash=0, Collisions=15/177=8%
+# Load=41/1024=4%, Rehash=0, Collisions=17/193=9%
 # VPATH Search Paths
 
 # No 'vpath' search paths.
 
 # No general ('VPATH' variable) search path.
 
-# strcache buffers: 1 (0) / strings = 86 / storage = 1274 B / avg = 14 B
-# current buf: size = 8162 B / used = 1274 B / count = 86 / avg = 14 B
+# strcache buffers: 1 (0) / strings = 89 / storage = 1311 B / avg = 14 B
+# current buf: size = 8162 B / used = 1311 B / count = 89 / avg = 14 B
 
-# strcache performance: lookups = 239 / hit rate = 64%
+# strcache performance: lookups = 263 / hit rate = 66%
 # hash-table stats:
-# Load=86/8192=1%, Rehash=0, Collisions=2/239=1%
-# Finished Make data base on Mon Jun  6 18:14:01 2022
+# Load=89/8192=1%, Rehash=0, Collisions=2/263=1%
+# Finished Make data base on Mon Jul  4 14:45:33 2022
 
  

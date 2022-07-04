@@ -1,7 +1,16 @@
-make --dry-run --keep-going --print-directory
-make: Entering directory '/home/student.unimelb.edu.au/mvirgato/WD_e_capture'
-gcc-9 -O3 -fopenmp -Iinclude -MMD -MP -c src/collective_effects.c -o obj/collective_effects.o
+make --dry-run --always-make --keep-going --print-directory
+make: Entering directory '/home/mvirgato/WD_e_capture'
+mkdir -p obj
  
-gcc-9 -O3 -fopenmp -o bin/run_capelec obj/evap_funcs.o obj/cap_interp.o obj/finite_T.o obj/elec_wd_main.o obj/multiscatter.o obj/crate_apprx_funcs.o obj/collective_effects.o obj/cap_funcs.o -lgsl -lgslcblas -lm
-make: Leaving directory '/home/student.unimelb.edu.au/mvirgato/WD_e_capture'
+gcc-9 -O3 -fopenmp -Iinclude -MMD -MP -c src/evap_funcs.c -o obj/evap_funcs.o
+gcc-9 -O3 -fopenmp -Iinclude -MMD -MP -c src/cap_interp.c -o obj/cap_interp.o
+gcc-9 -O3 -fopenmp -Iinclude -MMD -MP -c src/finite_T.c -o obj/finite_T.o
+gcc-9 -O3 -fopenmp -Iinclude -MMD -MP -c src/multiscatter.c -o obj/multiscatter.o
+gcc-9 -O3 -fopenmp -Iinclude -MMD -MP -c src/crate_apprx_funcs.c -o obj/crate_apprx_funcs.o
+gcc-9 -O3 -fopenmp -Iinclude -MMD -MP -c src/main_elec_wd.c -o obj/main_elec_wd.o
+gcc-9 -O3 -fopenmp -Iinclude -MMD -MP -c src/collective_effects.c -o obj/collective_effects.o
+gcc-9 -O3 -fopenmp -Iinclude -MMD -MP -c src/cap_funcs.c -o obj/cap_funcs.o
+mkdir -p bin
+gcc-9 -O3 -fopenmp -o bin/run_capelec obj/evap_funcs.o obj/cap_interp.o obj/finite_T.o obj/multiscatter.o obj/crate_apprx_funcs.o obj/main_elec_wd.o obj/collective_effects.o obj/cap_funcs.o -lgsl -lgslcblas -lm
+make: Leaving directory '/home/mvirgato/WD_e_capture'
  
