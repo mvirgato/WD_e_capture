@@ -187,8 +187,8 @@ double CollEffectsFF(double t, double uchi, double mchi, double B, double muFe, 
 
         // Fudge Factor to account for collective effects
 
-        double RePiL = RePiL_degen_approx(t, q0, q, muFe);// + RePiL_dnr(t, q0, q, nE);
-        double ImPiL = ImPiL_degen_approx(t, q0, q, muFe);// + ImPiL_dnr(t, q0, q, nE);
+        double RePiL = RePiL_degen_approx(t, q0, q, muFe) + RePiL_dnr(t, q0, q, nE);
+        double ImPiL = ImPiL_degen_approx(t, q0, q, muFe) + ImPiL_dnr(t, q0, q, nE);
 
         // printf("%0.5e\n", RePiL_degen_approx(t, q0, q, muFe) / RePiL_degen(t, q0, q, muFe));
 
