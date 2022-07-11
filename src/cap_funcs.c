@@ -565,7 +565,7 @@ double crateCollEff(double mchi, int oper, int npts, void *cont_vars)
 
     gsl_monte_function FullUappx = {&monteIntegrandCollEff, 4, &params};
 
-    size_t calls = 50000;
+    size_t calls = 5000;
 
     Trng = gsl_rng_default;
     rng = gsl_rng_alloc(Trng);
@@ -604,7 +604,7 @@ double crateCollEff(double mchi, int oper, int npts, void *cont_vars)
 
         while (fabs(gsl_monte_vegas_chisq(s) - 1.0) > 0.5);
 
-        // display_results("vegas final", res, err);
+        display_results("vegas final", res, err);
 
         gsl_monte_vegas_free(s);
         printf("VEGAS RESULT:\t%0.5e +/- %0.3e\n", res, err);
