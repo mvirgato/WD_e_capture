@@ -363,9 +363,9 @@ double monteIntegrandNoPB(double x[], size_t dim, void * p){
     double s = x[3]; // sp = (smax - smin)*s + smin
     double t = x[4]; // tp = -tmin*t + tmin
 
-    double muf = muFeinterp(r, np);
-    double ne  = nEinterp(r, np);
-    double B   = Binterp(r, np);
+    double muf = muFe0;// muFeinterp(r, np);
+    double ne  = n0;// nEinterp(r, np);
+    double B   = B0;// Binterp(r, np);
     
     double monteInt = integrandNoPB(r, u, E, s, t, muf, ne, B, mdm, oper);
 
@@ -392,9 +392,9 @@ double monteIntegrandFull(double x[], size_t dim, void *p)
     double t = x[4]; // tp = -tmin*t + tmin
     
 
-    double muf = muFeinterp(r, np);
-    double ne = nEinterp(r, np);
-    double B = Binterp(r, np);
+    double muf = muFe0;// muFeinterp(r, np);
+    double ne  = n0;// nEinterp(r, np);
+    double B   = B0;// Binterp(r, np);
 
     double monteInt = integrandFull(r, u, E, s, t, muf, ne, B, mdm, oper, z0, k0);
 
@@ -418,9 +418,9 @@ double monteIntegrandCollEff(double x[], size_t dim, void *p)
     double s = x[2]; // sp = (smax - smin)*s + smin
     double t = x[3]; // tp = -tmin*t + tmin
 
-    double muf = muFeinterp(r, np);
-    double ne = nEinterp(r, np);
-    double B = Binterp(r, np);
+    double muf = muFe0;// muFeinterp(r, np);
+    double ne  = n0;// nEinterp(r, np);
+    double B   = B0;// Binterp(r, np);
 
     double monteInt = integrandCollEff(r, E, s, t, muf, ne, B, mdm, oper, k0, z0);
 

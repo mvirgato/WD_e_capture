@@ -79,6 +79,7 @@ int read_profs(char *filename, int *np)
     *np = i;
     n0 = nEint[0];
     muFe0 = muFeint[0];
+    B0 = Bint[0];
 
     return 0;
 }

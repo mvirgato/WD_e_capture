@@ -175,35 +175,6 @@ double RePiL_degen_approx_2(double t, double q0, double q, double muFe){
 
 // }
 
-double CollEffectsFF(double t, double uchi, double mchi, double B, double muFe, double nE, double soln)
-{
-    if (t == 0){
-        return 0.0;
-    }
-    else{
-
-        double q0 = q0_tr(uchi, mchi, B, muFe, soln);
-        double q = sqrt(q_tr_2(q0, t));
-
-        // Fudge Factor to account for collective effects
-
-        double RePiL = RePiL_degen_approx(t, q0, q, muFe) + RePiL_dnr(t, q0, q, nE);
-        double ImPiL = ImPiL_degen_approx(t, q0, q, muFe) + ImPiL_dnr(t, q0, q, nE);
-
-        // printf("%0.5e\n", RePiL_degen_approx(t, q0, q, muFe) / RePiL_degen(t, q0, q, muFe));
-
-        double denom = ((RePiL - t) * (RePiL - t) + ImPiL * ImPiL);
-        // double denom = SQR(t - PiL_appox(t, q0, q, muFe, nE)) + PiL_appox(t, q0, q, muFe, nE)/10.0;
-
-        double res = t * t / denom;
-        // if (res > 1.0){
-        //     printf("%0.5e\n", res);
-        // }
-
-        return res;
-    }
-}
-
 
 // Dilute non-relativistic gas
 
@@ -272,6 +243,35 @@ double PiL_appox(double t, double q0, double q, double muFe, double nE){
     double PiELec = - (4.0 *  alphaEM / pi) * Ef * pf * t/SQR(q);
 
     return PiELec + PiIon;
+}
+
+double CollEffectsFF(double t, double uchi, double mchi, double B, double muFe, double nE, double soln)
+{
+    if (t == 0){
+        return 0.0;
+    }
+    else{
+
+        double q0 = q0_tr(uchi, mchi, B, muFe, soln);
+        double q = sqrt(q_tr_2(q0, t));
+
+        // Fudge Factor to account for collective effects
+
+        double RePiL = RePiL_degen_approx(t, q0, q, muFe) + RePiL_dnr(t, q0, q, nE);
+        double ImPiL = ImPiL_degen_approx(t, q0, q, muFe) + ImPiL_dnr(t, q0, q, nE);
+
+        // printf("%0.5e\n", RePiL_degen_approx(t, q0, q, muFe) / RePiL_degen(t, q0, q, muFe));
+
+        double denom = ((RePiL - t) * (RePiL - t) + ImPiL * ImPiL);
+        // double denom = SQR(t - PiL_appox(t, q0, q, muFe, nE)) + PiL_appox(t, q0, q, muFe, nE)/10.0;
+
+        double res = t * t / denom;
+        // if (res > 1.0){
+        //     printf("%0.5e\n", res);
+        // }
+
+        return res;
+    }
 }
 
 // Analytic expressions for integrals

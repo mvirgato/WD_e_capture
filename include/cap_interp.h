@@ -3,6 +3,7 @@
 
 double n0; // central electron number density
 double muFe0; // central electron chemical potential
+double B0; // central B value
 double RS; // Star radius
 double xmin;// min x = r/RS
 double rhoc; // central density
