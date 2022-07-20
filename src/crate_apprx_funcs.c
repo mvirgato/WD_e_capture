@@ -374,9 +374,9 @@ double monteIntegrandUappx(double x[], size_t dim, void *p)
     double s = x[2]; // sp = (smax - smin)*s + smin
     double t = x[3]; // tp = -tmin*t + tmin
 
-    double muf = muFe0;// muFeinterp(r, np);
-    double ne  = n0;// nEinterp(r, np);
-    double B   = B0;// Binterp(r, np);
+    double muf = muFeinterp(r, np);
+    double ne  = nEinterp(r, np);
+    double B   = Binterp(r, np);
 
     double monteInt = integrandUappx(r, E, s, t, muf, ne, B, mdm, oper, k0, z0);
 

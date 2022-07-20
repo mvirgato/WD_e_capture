@@ -198,8 +198,8 @@ double RePiL_dnr(double t, double q0, double q, double nE)
     double Z = 6.0;
     double s = sqrt(T / m);
     double xi = q0 / (sqrt(2) * q * s);
-    double qp = t / (2 * q0 * m);
-    return (((SQR(echarge) * SQR(Z) * nE/Z) / (sqrt(2) * q * s)) * (Zr(xi * (1.0 + qp)) - Zr(xi * (1.0 - qp))));
+    double delta = -t / (2 * sqrt(2) * q * s * m);
+    return (((SQR(echarge) * SQR(Z) * nE/Z) / (sqrt(2) * q * s)) * (Zr(xi - delta) - Zr(xi + delta)));
 }
 
 double ImPiL_dnr(double t, double q0, double q, double nE)
@@ -210,9 +210,9 @@ double ImPiL_dnr(double t, double q0, double q, double nE)
     double Z = 6.0;
     double s = sqrt(T / m);
     double xi = q0 / (sqrt(2) * q * s);
-    double qp = t / (2 * q0 * m);
+    double delta = -t / (2 * sqrt(2) * q * s * m);
 
-    return (((SQR(echarge) * SQR(Z) * nE/Z) / (sqrt(2) * q * s)) * (Zi(xi * (1.0 + qp)) - Zi(xi * (1.0 - qp))));
+    return (((SQR(echarge) * SQR(Z) * nE/Z) / (sqrt(2) * q * s)) * (Zi(xi - delta) - Zi(xi + delta)));
 }
 
 double RePiL_dnr_approx(double t, double q0, double q, double nE){
