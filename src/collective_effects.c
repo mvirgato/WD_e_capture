@@ -219,7 +219,7 @@ double RePiL_dnr_approx(double t, double q0, double q, double nE){
 
     double mi  = 12000.0;
     nE = nE / (pmTOm * mTOinveV)/ (pmTOm * mTOinveV)/ (pmTOm * mTOinveV);
-    double wi2 = (nE/6.0) * SQR(6.0) * SQR(echarge) / mi;
+    double wi2 = (4.0 * pi * nE/6.0) * SQR(6.0) * SQR(echarge) / mi;
     
 
     return wi2 * t / SQR(q0);
@@ -231,7 +231,7 @@ double PiL_appox(double t, double q0, double q, double muFe, double nE){
 
     double mi  = 12000.0;
     nE = nE / (pmTOm * mTOinveV)/ (pmTOm * mTOinveV)/ (pmTOm * mTOinveV);
-    double wi2 = (nE/6.0) * SQR(6.0) * SQR(echarge) / mi;
+    double wi2 = (4.0 * pi * nE/6.0) * SQR(6.0) * SQR(echarge) / mi;
 
     double mue = muFe + mt; // Change between conventions for muFe. Lasenby uses standard convention compared to our "Fermi Kinetic Energy"
     double pf = sqrt(mue * mue - mt * mt);
