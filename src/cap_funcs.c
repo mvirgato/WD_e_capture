@@ -565,7 +565,7 @@ double crateCollEff(double mchi, int oper, int npts, void *cont_vars)
 
     gsl_monte_function FullUappx = {&monteIntegrandCollEff, 4, &params};
 
-    size_t calls = 450000;
+    size_t calls = 60000;
 
     Trng = gsl_rng_default;
     rng = gsl_rng_alloc(Trng);
