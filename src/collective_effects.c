@@ -180,18 +180,23 @@ double RePiL_degen_approx_2(double t, double q0, double q, double muFe){
 
 double Zi(double x)
 {
-
-    return sqrt(pi) * exp(-x * x);
+    if (x > 6){
+        return 0.0;
+    }
+    else{
+        return sqrt(pi) * exp(-x * x);
+    }
 }
 
 double Zr(double x)
 {
-
+    // printf("%0.5e\n", x);
     return -sqrt(pi) * gsl_sf_dawson(x);
 }
 
 double RePiL_dnr(double t, double q0, double q, double nE)
 {
+    // printf("%0.5e\t%0.5e\t%0.5e\t%0.5e\n", t, q0, q, nE);
     double m = 12000.0;
     nE = nE / (pmTOm * mTOinveV)/ (pmTOm * mTOinveV)/ (pmTOm * mTOinveV);
     double T = 1e5 * kBMeV;
@@ -247,13 +252,17 @@ double PiL_appox(double t, double q0, double q, double muFe, double nE){
 
 double CollEffectsFF(double t, double uchi, double mchi, double B, double muFe, double nE, double soln)
 {
-    if (t == 0){
+    if (t == 0.0){
+        return 0.0;
+    }
+    else if (isnan(soln)){
         return 0.0;
     }
     else{
 
         double q0 = q0_tr(uchi, mchi, B, muFe, soln);
         double q = sqrt(q_tr_2(q0, t));
+        // printf("%0.5e\t%0.5e\t%0.5e\t%0.5e\n", t, q0, q_tr_2(q0, t), soln);
 
         // Fudge Factor to account for collective effects
 
