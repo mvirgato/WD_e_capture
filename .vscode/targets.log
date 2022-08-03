@@ -6,7 +6,7 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Mon Jul 25 10:34:09 2022
+# Make data base, printed on Wed Aug  3 14:57:38 2022
 
 # Variables
 
@@ -65,7 +65,7 @@ XDG_RUNTIME_DIR = /mnt/wslg/runtime-dir
 # environment
 ELECTRON_RUN_AS_NODE = 1
 # environment
-VSCODE_IPC_HOOK_CLI = /mnt/wslg/runtime-dir/vscode-ipc-5d5d0a3a-1998-4710-aa61-f1ea2f5f9a3d.sock
+VSCODE_IPC_HOOK_CLI = /mnt/wslg/runtime-dir/vscode-ipc-1be79a06-564c-451e-b3ea-258f7614fdde.sock
 # makefile (from 'makefile', line 43)
 LDFLAGS := -Llib
 # default
@@ -83,11 +83,11 @@ PWD = /home/mvirgato/WD_e_capture
 # default
 .LOADED := 
 # environment
-WSL_INTEROP = /run/WSL/9_interop
+WSL_INTEROP = /run/WSL/735_interop
 # environment
 PULSE_SERVER = /mnt/wslg/PulseServer
 # environment
-WT_SESSION = 9e96aa9f-efe8-45af-be1a-91bb2a00454a
+WT_SESSION = b707ee3e-6b02-429d-b4c5-6bae64ed6771
 # environment
 VSCODE_AMD_ENTRYPOINT = vs/workbench/api/node/extensionHostProcess
 # environment
@@ -114,7 +114,6 @@ MAKECMDGOALS := all
 SHLVL = 1
 # makefile (from 'makefile', line 31)
 CC = gcc-9
- 
 # default
 MAKE_VERSION := 4.2.1
 # environment
@@ -177,10 +176,8 @@ LANG = C
 TERM = xterm-256color
 # environment
 WSL_DISTRO_NAME = Ubuntu-20.04
-# environment
-MOTD_SHOWN = update-motd
 # variable set hash-table stats:
-# Load=84/1024=8%, Rehash=0, Collisions=7/147=5%
+# Load=83/1024=8%, Rehash=0, Collisions=7/139=5%
 
 # Pattern-specific Variable Values
 
@@ -209,28 +206,31 @@ all: bin/run_capelec
 #  Implicit rule search has not been done.
 #  File does not exist.
 #  File has been updated.
-#  Needs to be updated (-q is set).
-# variable set hash-table stats:
-# Load=0/32=0%, Rehash=0, Collisions=0/7=0%
+#  Successfully updated.
 
 bin:
 #  Implicit rule search has not been done.
-#  Modification time never checked.
-#  File has not been updated.
+#  Last modified 2022-07-25 10:42:24.018376981
+#  File has been updated.
+#  Successfully updated.
 #  recipe to execute (from 'makefile', line 57):
 	mkdir -p $@
 
 # Not a target:
 obj/evap_funcs.d:
 #  Implicit rule search has been done.
-#  Last modified 2022-07-13 19:40:27.388641696
+#  Last modified 2022-07-25 10:42:22.428376963
 #  File has been updated.
 #  Successfully updated.
 
-obj/main_elec_wd.o: src/main_elec_wd.c include/globals.h include/cap_interp.h include/cap_funcs.h include/crate_apprx_funcs.h include/finite_T.h include/multiscatter.h include/collective_effects.h
-#  Implicit rule search has not been done.
-#  Modification time never checked.
-#  File has not been updated.
+obj/main_elec_wd.o: src/main_elec_wd.c src/main_elec_wd.c include/globals.h include/cap_interp.h include/cap_funcs.h include/crate_apprx_funcs.h include/finite_T.h include/multiscatter.h include/collective_effects.h | obj
+#  Implicit rule search has been done.
+#  Implicit/static pattern stem: 'main_elec_wd'
+#  Last modified 2022-07-25 10:42:23.308376973
+#  File has been updated.
+#  Successfully updated.
+#  recipe to execute (from 'makefile', line 54):
+	$(CC) $(CFLAGS) $(INC) $(CXXFLAGS) -c $< -o $@
 
 .PHONY: all clean
 #  Implicit rule search has not been done.
@@ -263,26 +263,29 @@ include/cap_funcs.h:
 #  Successfully updated.
 
 include/collective_effects.h:
-#  Implicit rule search has not been done.
-#  Modification time never checked.
-#  File has not been updated.
+#  Implicit rule search has been done.
+#  Last modified 2022-07-11 17:06:42.747406995
+#  File has been updated.
+#  Successfully updated.
 
 # Not a target:
 src/cap_funcs.c:
-#  Implicit rule search has not been done.
-#  Modification time never checked.
-#  File has not been updated.
+#  Implicit rule search has been done.
+#  Last modified 2022-07-20 19:48:55.063084931
+#  File has been updated.
+#  Successfully updated.
 
 # Not a target:
 src/collective_effects.c:
-#  Implicit rule search has not been done.
-#  Modification time never checked.
-#  File has not been updated.
+#  Implicit rule search has been done.
+#  Last modified 2022-07-25 10:39:15.918374782
+#  File has been updated.
+#  Successfully updated.
 
 obj/finite_T.o: src/finite_T.c src/finite_T.c include/globals.h include/finite_T.h include/cap_funcs.h include/crate_apprx_funcs.h include/cap_interp.h | obj
 #  Implicit rule search has been done.
 #  Implicit/static pattern stem: 'finite_T'
-#  Last modified 2022-07-20 19:48:55.053084931
+#  Last modified 2022-07-25 10:42:22.678376966
 #  File has been updated.
 #  Successfully updated.
 #  recipe to execute (from 'makefile', line 54):
@@ -291,7 +294,7 @@ obj/finite_T.o: src/finite_T.c src/finite_T.c include/globals.h include/finite_T
 # Not a target:
 obj/cap_interp.d:
 #  Implicit rule search has been done.
-#  Last modified 2022-07-13 19:40:27.468641697
+#  Last modified 2022-07-25 10:42:22.518376964
 #  File has been updated.
 #  Successfully updated.
 
@@ -304,14 +307,15 @@ makefile:
 
 # Not a target:
 src/main_elec_wd.c:
-#  Implicit rule search has not been done.
-#  Modification time never checked.
-#  File has not been updated.
+#  Implicit rule search has been done.
+#  Last modified 2022-07-25 10:41:53.448376624
+#  File has been updated.
+#  Successfully updated.
 
 obj/evap_funcs.o: src/evap_funcs.c src/evap_funcs.c include/globals.h include/cap_funcs.h include/cap_interp.h include/evap_funcs.h | obj
 #  Implicit rule search has been done.
 #  Implicit/static pattern stem: 'evap_funcs'
-#  Last modified 2022-07-20 19:48:55.053084931
+#  Last modified 2022-07-25 10:42:22.438376963
 #  File has been updated.
 #  Successfully updated.
 #  recipe to execute (from 'makefile', line 54):
@@ -320,13 +324,13 @@ obj/evap_funcs.o: src/evap_funcs.c src/evap_funcs.c include/globals.h include/ca
 # Not a target:
 obj/crate_apprx_funcs.d:
 #  Implicit rule search has been done.
-#  Last modified 2022-07-13 19:40:27.7486417
+#  Last modified 2022-07-25 10:42:22.848376968
 #  File has been updated.
 #  Successfully updated.
 
 obj:
 #  Implicit rule search has not been done.
-#  Last modified 2022-07-20 19:48:55.053084931
+#  Last modified 2022-07-25 10:42:23.818376979
 #  File has been updated.
 #  Successfully updated.
 #  recipe to execute (from 'makefile', line 57):
@@ -347,18 +351,16 @@ src/finite_T.c:
 
 bin/run_capelec: obj/evap_funcs.o obj/cap_interp.o obj/finite_T.o obj/multiscatter.o obj/crate_apprx_funcs.o obj/main_elec_wd.o obj/collective_effects.o obj/cap_funcs.o | bin
 #  Implicit rule search has not been done.
-#  Last modified 2022-07-20 19:48:55.053084931
+#  Last modified 2022-07-25 10:42:24.058376982
 #  File has been updated.
-#  Needs to be updated (-q is set).
-# variable set hash-table stats:
-# Load=0/32=0%, Rehash=0, Collisions=0/7=0%
+#  Successfully updated.
 #  recipe to execute (from 'makefile', line 51):
 	$(CC) $(CFLAGS) -o $@ $^ $(LDLIBS)
 
 obj/cap_interp.o: src/cap_interp.c src/cap_interp.c include/globals.h include/cap_interp.h | obj
 #  Implicit rule search has been done.
 #  Implicit/static pattern stem: 'cap_interp'
-#  Last modified 2022-07-20 19:48:55.053084931
+#  Last modified 2022-07-25 10:42:22.518376964
 #  File has been updated.
 #  Successfully updated.
 #  recipe to execute (from 'makefile', line 54):
@@ -373,7 +375,7 @@ obj/cap_interp.o: src/cap_interp.c src/cap_interp.c include/globals.h include/ca
 # Not a target:
 obj/multiscatter.d:
 #  Implicit rule search has been done.
-#  Last modified 2022-07-13 19:40:27.648641699
+#  Last modified 2022-07-25 10:42:22.718376966
 #  File has been updated.
 #  Successfully updated.
 
@@ -393,15 +395,14 @@ src/evap_funcs.c:
 # Not a target:
 obj/cap_funcs.d:
 #  Implicit rule search has been done.
-#  Last modified 2022-07-13 19:40:28.648641712
- 
+#  Last modified 2022-07-25 10:42:23.818376979
 #  File has been updated.
 #  Successfully updated.
 
 # Not a target:
 obj/collective_effects.d:
 #  Implicit rule search has been done.
-#  Last modified 2022-07-13 19:40:28.398641709
+#  Last modified 2022-07-25 10:42:23.568376976
 #  File has been updated.
 #  Successfully updated.
 
@@ -416,27 +417,9 @@ clean:
 obj/crate_apprx_funcs.o: src/crate_apprx_funcs.c src/crate_apprx_funcs.c include/globals.h include/cap_funcs.h include/crate_apprx_funcs.h include/cap_interp.h include/multiscatter.h | obj
 #  Implicit rule search has been done.
 #  Implicit/static pattern stem: 'crate_apprx_funcs'
-#  Last modified 2022-07-20 19:48:55.053084931
+#  Last modified 2022-07-25 10:42:22.858376968
 #  File has been updated.
-#  Needs to be updated (-q is set).
-# automatic
-# @ := obj/crate_apprx_funcs.o
-# automatic
-# % := 
-# automatic
-# * := crate_apprx_funcs
-# automatic
-# + := src/crate_apprx_funcs.c src/crate_apprx_funcs.c include/globals.h include/cap_funcs.h include/crate_apprx_funcs.h include/cap_interp.h include/multiscatter.h
-# automatic
-# | := obj
-# automatic
-# < := src/crate_apprx_funcs.c
-# automatic
-# ^ := src/crate_apprx_funcs.c include/globals.h include/cap_funcs.h include/crate_apprx_funcs.h include/cap_interp.h include/multiscatter.h
-# automatic
-# ? := src/crate_apprx_funcs.c
-# variable set hash-table stats:
-# Load=8/32=25%, Rehash=0, Collisions=1/17=6%
+#  Successfully updated.
 #  recipe to execute (from 'makefile', line 54):
 	$(CC) $(CFLAGS) $(INC) $(CXXFLAGS) -c $< -o $@
 
@@ -456,14 +439,14 @@ src/cap_interp.c:
 # Not a target:
 obj/main_elec_wd.d:
 #  Implicit rule search has been done.
-#  Last modified 2022-07-13 19:40:28.158641706
+#  Last modified 2022-07-25 10:42:23.298376973
 #  File has been updated.
 #  Successfully updated.
 
 obj/multiscatter.o: src/multiscatter.c src/multiscatter.c include/globals.h include/multiscatter.h include/cap_funcs.h include/crate_apprx_funcs.h include/cap_interp.h | obj
 #  Implicit rule search has been done.
 #  Implicit/static pattern stem: 'multiscatter'
-#  Last modified 2022-07-20 19:48:55.053084931
+#  Last modified 2022-07-25 10:42:22.728376966
 #  File has been updated.
 #  Successfully updated.
 #  recipe to execute (from 'makefile', line 54):
@@ -472,19 +455,28 @@ obj/multiscatter.o: src/multiscatter.c src/multiscatter.c include/globals.h incl
 # Not a target:
 obj/finite_T.d:
 #  Implicit rule search has been done.
-#  Last modified 2022-07-13 19:40:27.608641699
+#  Last modified 2022-07-25 10:42:22.668376966
 #  File has been updated.
 #  Successfully updated.
 
-obj/cap_funcs.o: src/cap_funcs.c include/globals.h include/cap_funcs.h include/cap_interp.h include/collective_effects.h include/crate_apprx_funcs.h
-#  Implicit rule search has not been done.
-#  Modification time never checked.
-#  File has not been updated.
+obj/cap_funcs.o: src/cap_funcs.c src/cap_funcs.c include/globals.h include/cap_funcs.h include/cap_interp.h include/collective_effects.h include/crate_apprx_funcs.h | obj
+#  Implicit rule search has been done.
+#  Implicit/static pattern stem: 'cap_funcs'
+#  Last modified 2022-07-25 10:42:23.828376979
+#  File has been updated.
+#  Successfully updated.
+#  recipe to execute (from 'makefile', line 54):
+	$(CC) $(CFLAGS) $(INC) $(CXXFLAGS) -c $< -o $@
+ 
 
-obj/collective_effects.o: src/collective_effects.c include/globals.h include/collective_effects.h
-#  Implicit rule search has not been done.
-#  Modification time never checked.
-#  File has not been updated.
+obj/collective_effects.o: src/collective_effects.c src/collective_effects.c include/globals.h include/collective_effects.h | obj
+#  Implicit rule search has been done.
+#  Implicit/static pattern stem: 'collective_effects'
+#  Last modified 2022-07-25 10:42:23.578376976
+#  File has been updated.
+#  Successfully updated.
+#  recipe to execute (from 'makefile', line 54):
+	$(CC) $(CFLAGS) $(INC) $(CXXFLAGS) -c $< -o $@
 
 include/crate_apprx_funcs.h:
 #  Implicit rule search has been done.
@@ -500,19 +492,19 @@ src/crate_apprx_funcs.c:
 #  Successfully updated.
 
 # files hash-table stats:
-# Load=41/1024=4%, Rehash=0, Collisions=11/181=6%
+# Load=41/1024=4%, Rehash=0, Collisions=17/193=9%
 # VPATH Search Paths
 
 # No 'vpath' search paths.
 
 # No general ('VPATH' variable) search path.
 
-# strcache buffers: 1 (0) / strings = 86 / storage = 1269 B / avg = 14 B
-# current buf: size = 8162 B / used = 1269 B / count = 86 / avg = 14 B
+# strcache buffers: 1 (0) / strings = 89 / storage = 1311 B / avg = 14 B
+# current buf: size = 8162 B / used = 1311 B / count = 89 / avg = 14 B
 
-# strcache performance: lookups = 248 / hit rate = 65%
+# strcache performance: lookups = 263 / hit rate = 66%
 # hash-table stats:
-# Load=86/8192=1%, Rehash=0, Collisions=2/248=1%
-# Finished Make data base on Mon Jul 25 10:34:09 2022
+# Load=89/8192=1%, Rehash=0, Collisions=2/263=1%
+# Finished Make data base on Wed Aug  3 14:57:38 2022
 
  
