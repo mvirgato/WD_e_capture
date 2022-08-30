@@ -50,6 +50,7 @@ static const double mmu = 105.66; // muon mass (*MeV*)
 
 // Capture rate integration structures
 struct cont_pars {double z0; double k0; double ct;};
+struct int_rate_params {double r; double mchi; int oper; int npts; double z0; double k0;}; // r is r/Rstar
 struct crate_params {double mchi; int oper; int npts; double z0; double k0;};
 struct crate_params_T {double mchi; double temp; int oper; int npts; double z0; double k0; double ct;};
 struct radprof_params {double rad; double mchi; int oper; int npts;};

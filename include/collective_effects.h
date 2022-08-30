@@ -20,5 +20,8 @@ double RePiL_dnr_approx(double t, double q0, double q, double nE);
 double ImPiL_dnr_approx(double t, double q0, double q, double muFe, double nE);
 double PiL_appox(double t, double q0, double q, double muFe, double nE);
 
+double intRateDeRoc(double r, double mchi, int oper, int npts, void *cont_vars);
+
+
 
 #endif

@@ -24,6 +24,7 @@
 #include "multiscatter.h"
 // #include "use_cuba.h"
 #include "collective_effects.h"
+#include "interaction_rates.h"
 
 //=============================================================================
 
@@ -56,6 +57,8 @@ double crate_all_Full(double lmmin, double lmmax, double step);
 double crate_all_NoPB(double lmmin, double lmmax, double step);
 double crate_all_Uappx_Full(double lmmin, double lmmax, double step);
 double crate_all_Uappx_NoPB(double lmmin, double lmmax, double step);
+
+double int_rate_singleOp_Full(double r, int oper, double lmmin, double lmmax, double step);
 
 double crate_singleOp_finiteT_full(int oper, double lmmin, double lmmax, double temp, double step);
 double crate_all_finiteT_NoPB(double lmmin, double lmmax, double temp, double step);
@@ -108,7 +111,7 @@ system_setup(mE, set_WD, label, elem, "20", &np); //outputs mt = target mass and
 
 // control parameters
 
-control_params.z0 = 0.05;
+control_params.z0 = 0.005;
 control_params.k0 = 0.0005;
 control_params.ct = 1.;
 
@@ -121,7 +124,7 @@ control_params.ct = 1.;
         // crate_singleOp_NoPB(5, 0, 4, 0.2);
         // crate_singleOp_Full(5, 0., 4., 0.2);
         // crate_singleOp_Uappx_Full(1, -3, 3., 0.2);
-        crate_singleOp_CollEff(5, 0, 4, 0.2);
+        // crate_singleOp_CollEff(5, 0, 4, 0.2);
         // if (fabs(x))
         //  crate_all_NoPB(2., 8., 0.2);
         //  crate_all_Full(-2., 8., 0.2);
@@ -140,6 +143,11 @@ control_params.ct = 1.;
 
         // printf("%0.5e\n", out);
 
+        //=============================================================================
+        // INTERACTION RATES CALCULATION
+        //=============================================================================
+        // printf("%0.5e\n", xmin);
+        int_rate_singleOp_Full(xmin, 5, 0, 3, 0.2);
         //=============================================================================
         // RADIAL PROFILE CALCULATION
         //=============================================================================
@@ -184,6 +192,52 @@ return 0;
 // END MAIN
 //=============================================================================
 //=============================================================================
+
+
+//=============================================================================
+// INTERACTION RATES
+//=============================================================================
+
+double int_rate_singleOp_Full(double r, int oper, double lmmin, double lmmax, double step)
+{
+        // enter r in r/Rstar
+
+        int i; // mass loop
+        int end = round((lmmax - lmmin) / step)+1; //number of mass points
+        double intOut[end];
+        double mchi[end];
+        int tally = 0;
+
+        #pragma omp parallel
+        {
+        #pragma omp for
+                for (i = 0; i <= end; i++)
+                {
+                        mchi[i] = pow(10, lmmin + step*i);
+                        intOut[i] = intRateDeRoc(r, mchi[i], oper, np, &control_params);
+                        // printf("%0.5e\n", intOut[i]);
+                        printf("==================================\n");
+                        printf("||\t%0.2f %% complete\t||\n", tally * 100. / (end));
+                        printf("==================================\n");
+                        tally++;
+                }
+        }
+
+        // char *filename = malloc(strlen("./int_rates/single_op_CE") +  strlen(".dat") + 1);
+        // sprintf(filename, "./int_rates/single_op_CE.dat");
+
+        char *filename = "./int_rates/single_op_DR.dat";
+
+        FILE *singleOp = fopen(filename, "w");
+        // fprintf(singleOp, "mchi\tOmega\n");
+        for(i=0; i<end; i++){
+                fprintf(singleOp, "%0.5e\t%0.5e\n", mchi[i], intOut[i]);
+        }
+        fclose(singleOp);
+        // free(filename);
+
+        return 0.;
+}
 
 // void method_comps(){
 //         int i;

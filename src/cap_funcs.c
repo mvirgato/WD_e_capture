@@ -445,17 +445,25 @@ double crateNoPb(double mchi, int oper, int npts){
 
     gsl_monte_function NoPBfunc = {&monteIntegrandNoPB, 5, &params};
 
-    size_t calls = 10000;
+    size_t calls = 20000;
 
     Trng = gsl_rng_default;
     rng = gsl_rng_alloc(Trng);
 
-    {
-        gsl_monte_plain_state *s = gsl_monte_plain_alloc(5);
-        gsl_monte_plain_integrate(&NoPBfunc, term_min, term_max, 5, calls, rng, s, &res, &err);
-        gsl_monte_plain_free(s);
+    // {
+    //     gsl_monte_plain_state *s = gsl_monte_plain_alloc(5);
+    //     gsl_monte_plain_integrate(&NoPBfunc, term_min, term_max, 5, calls, rng, s, &res, &err);
+    //     gsl_monte_plain_free(s);
 
-        // display_results("plain", res, err);
+    //     // display_results("plain", res, err);
+    // }
+
+    {
+        gsl_monte_miser_state *s = gsl_monte_miser_alloc(5);
+        gsl_monte_miser_integrate(&NoPBfunc, term_min, term_max, 5, calls, rng, s, &res, &err);
+        gsl_monte_miser_free(s);
+
+        // display_results("misner", res, err);
     }
 
     gsl_rng_free(rng);
@@ -565,7 +573,7 @@ double crateCollEff(double mchi, int oper, int npts, void *cont_vars)
 
     gsl_monte_function FullUappx = {&monteIntegrandCollEff, 4, &params};
 
-    size_t calls = 60000;
+    size_t calls = 70000;
 
     Trng = gsl_rng_default;
     rng = gsl_rng_alloc(Trng);
