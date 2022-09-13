@@ -21,6 +21,11 @@
 #include "collective_effects.h"
 #include "cap_interp.h"
 
+#include "cubature.h"
+
+#define cubature hcubature
+
+
 /* In this module:
         muFe = Fermi kinetic energy, what we call chemical potential in our early papers
         mue  = Conventional chemical potential, mue = muFe + mt
@@ -274,8 +279,8 @@ double CollEffectsFF(double t, double uchi, double mchi, double B, double muFe, 
 
         // Fudge Factor to account for collective effects
 
-        double RePiL = RePiL_degen_approx(t, q0, q, muFe) + RePiL_dnr(t, q0, q, nE);
-        double ImPiL = ImPiL_degen_approx(t, q0, q, muFe) + ImPiL_dnr(t, q0, q, nE);
+        double RePiL = RePiL_degen_approx(t, q0, q, muFe); //+ RePiL_dnr(t, q0, q, nE);
+        double ImPiL = ImPiL_degen_approx(t, q0, q, muFe); //+ ImPiL_dnr(t, q0, q, nE);
 
         // printf("%0.5e\n", RePiL_degen_approx(t, q0, q, muFe) / RePiL_degen(t, q0, q, muFe));
 
@@ -361,13 +366,15 @@ double integrandIntRateDeRoc(double qp, double q0p, double muFe, double nE, doub
     double Echi = mchi / sqrt(B);
     double pchi = sqrt(Echi * Echi - mchi * mchi);
 
-    double q1 = 0.0;
+    double q1 = 1e-10;
     double q2 = 2.0 * pchi;
     double q = (q2 - q1) * qp + q1;
 
     double q01 = fmax( (Echi - sqrt(Echi * Echi + q*q + 2.0 * q * pchi) ), 0);
     double q02 = fmax( (Echi - sqrt(Echi * Echi + q*q - 2.0 * q * pchi) ), 0);
+
     double q0 = (q02 - q01) * q0p + q01;
+    // printf("%0.5e\t%0.5e\n", mE, q02);
 
     double t = q0*q0 - q*q;
 
@@ -375,11 +382,9 @@ double integrandIntRateDeRoc(double qp, double q0p, double muFe, double nE, doub
 
     double Jac = (q2 - q1) * (q02 - q01) ; // Jacobian to change (q, q0) to unit square
 
-
-
-
-    double cosTH = (q * q - q0 * q0 - 2.0 * Echi * q0) / (2.0 * pchi * q0);
+    double cosTH = (q * q - q0 * q0 - 2.0 * Echi * q0) / (2.0 * pchi * q);
     double res;
+    
     if ( cosTH*cosTH > 1 ){
         res = 0.0;
     }
@@ -387,10 +392,12 @@ double integrandIntRateDeRoc(double qp, double q0p, double muFe, double nE, doub
     else{
 
         double ImPiL = ImPiL_degen_approx(t, q0, q, muFe) + ImPiL_dnr(t, q0, q, nE);
+        double RePiL = RePiL_degen_approx(t, q0, q, muFe) + RePiL_dnr(t, q0, q, nE);
 
-        double int_main = q * (2.0 * ( Echi*Echi - pchi * pchi * cosTH * cosTH) * ImPiL );
+        double ImPiLTot = t*t * ImPiL / ( SQR(RePiL - t) + SQR(ImPiL));
+
+        double int_main = q * (2.0 * ( Echi*Echi - pchi * pchi * cosTH * cosTH) * ImPiLTot );
         res = prefac * Jac * int_main;
-
     }
 
     return res;
@@ -420,6 +427,33 @@ double monteIntegrandIntRateDeRoc(double x[], size_t dim, void *p)
     double monteInt = integrandIntRateDeRoc(q, q0, muf, ne, B, mdm, oper, k0, z0);
 
     return monteInt;
+}
+
+int cubaIntegrandIntRateDeRoc(unsigned dim, const double *x, void *p, unsigned fdim, double *retval){
+
+    (void) (dim);
+    (void) (fdim);
+
+    struct int_rate_params *params = (struct int_rate_params *)p;
+
+    double r   = (params->r); // r/Rstar
+    double mdm = (params->mchi);
+    int np     = (params->npts);
+    int oper   = (params->oper);
+    double z0  = (params->z0);
+    double k0  = (params->k0);
+
+    double q  = x[0]; // qp = (qmax - qmin)*s + qmin
+    double q0 = x[1]; // q0p = (q0max - q0min)*s + q0min
+
+    double muf = muFeinterp(r, np);
+    double ne  = nEinterp(r, np);
+    double B   = Binterp(r, np);
+
+    *retval = integrandIntRateDeRoc(q, q0, muf, ne, B, mdm, oper, k0, z0);
+
+
+    return 0;
 }
 
 double intRateDeRoc(double r, double mchi, int oper, int npts, void *cont_vars)
@@ -466,15 +500,15 @@ double intRateDeRoc(double r, double mchi, int oper, int npts, void *cont_vars)
     }
 
     // {
-    //     gsl_monte_vegas_state *s = gsl_monte_vegas_alloc(3);
+    //     gsl_monte_vegas_state *s = gsl_monte_vegas_alloc(2);
 
-    //     gsl_monte_vegas_integrate(&IntRateIntegrand, term_min, term_max, 3, calls / 5, rng, s, &res, &err);
+    //     gsl_monte_vegas_integrate(&IntRateIntegrand, term_min, term_max, 2, calls / 5, rng, s, &res, &err);
     //     // display_results("vegas warm-up", res, err);
     //     // printf("converging...\n");
 
     //     do
     //     {
-    //         gsl_monte_vegas_integrate(&IntRateIntegrand, term_min, term_max, 3, calls, rng, s, &res, &err);
+    //         gsl_monte_vegas_integrate(&IntRateIntegrand, term_min, term_max, 2, calls, rng, s, &res, &err);
     //         // printf("result = % .6e sigma = % .6e "
     //         //        "chisq/dof = %.1e\n",
     //         //        res, err, gsl_monte_vegas_chisq(s));
@@ -492,3 +526,28 @@ double intRateDeRoc(double r, double mchi, int oper, int npts, void *cont_vars)
 
     return res;
 }
+
+double intRateDeRoc_CUBA(double r, double mchi, int oper, int npts, void *cont_vars){
+
+    double res, err;
+
+    struct cont_pars *contp  = (struct cont_pars *)cont_vars;
+
+    double z0 = (contp->z0);
+    double k0 = (contp->k0);
+
+    struct int_rate_params params = {r, mchi, oper, npts, z0, k0};
+
+    double term_max[2] = {1, 1};
+    double term_min[2] = {0, 0};
+
+    size_t max_evals = 100000;
+    double err_abs = 1e-12;
+    double err_rel = 1e-12;
+
+    cubature(1, cubaIntegrandIntRateDeRoc, &params, 2, term_min, term_max, max_evals, err_abs, err_rel, ERROR_INDIVIDUAL, &res, &err);
+
+    printf("%0.5e\t%0.5e\n", res, err);
+
+    return res;
+}   

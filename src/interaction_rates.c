@@ -43,7 +43,7 @@ double integrandIntRate(double r, double Ep, double sp, double tp, double muFe, 
     // printf("%0.5e\n",tp);
     double soln = solnFunc(Eu, s, t, 0, mchi, B, muFe);
     // * HeavisidePhaseSpace(Eu, s, B, s1, s2)
-           
+        //    
     double int_main = CollEffectsFF(t, 0, mchi, B, muFe, nE, soln) * (zeta(nE, muFe) * Eu * s * opersdXS(s, t, mchi, oper) * HeavisidePB(Eu, s, t, 0, mchi, B, muFe, soln) * sqrt(B / ( 1.0 - B ) )/ beta_cap(s, mchi) / gamma_cap(s, mchi));
 
     // printf("%0.5e\t%0.5e\t%0.5e\t%0.5e\n", Eu, B, s1);
@@ -99,7 +99,7 @@ double intRate(double r, double mchi, int oper, int npts, void *cont_vars)
 
     gsl_monte_function IntRateIntegrand = {&monteIntegrandIntRate, 3, &params};
 
-    size_t calls = 50000;
+    size_t calls = 70000;
 
     Trng = gsl_rng_default;
     rng = gsl_rng_alloc(Trng);
@@ -141,7 +141,7 @@ double intRate(double r, double mchi, int oper, int npts, void *cont_vars)
         // display_results("vegas final", res, err);
 
         gsl_monte_vegas_free(s);
-        printf("VEGAS RESULT:\t%0.5e +- %0.3e\n", res, err);
+        printf("VEGAS RESULT:\t%0.5e +/- %0.3e\n", res, err);
     }
 
     gsl_rng_free(rng);

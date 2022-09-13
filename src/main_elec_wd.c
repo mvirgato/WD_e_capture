@@ -147,7 +147,7 @@ control_params.ct = 1.;
         // INTERACTION RATES CALCULATION
         //=============================================================================
         // printf("%0.5e\n", xmin);
-        int_rate_singleOp_Full(xmin, 5, 0, 3, 0.2);
+        int_rate_singleOp_Full(xmin, 5, -1, 3, 0.2);
         //=============================================================================
         // RADIAL PROFILE CALCULATION
         //=============================================================================
@@ -214,7 +214,7 @@ double int_rate_singleOp_Full(double r, int oper, double lmmin, double lmmax, do
                 for (i = 0; i <= end; i++)
                 {
                         mchi[i] = pow(10, lmmin + step*i);
-                        intOut[i] = intRateDeRoc(r, mchi[i], oper, np, &control_params);
+                        intOut[i] = intRateDeRoc_CUBA(r, mchi[i], oper, np, &control_params);
                         // printf("%0.5e\n", intOut[i]);
                         printf("==================================\n");
                         printf("||\t%0.2f %% complete\t||\n", tally * 100. / (end));
