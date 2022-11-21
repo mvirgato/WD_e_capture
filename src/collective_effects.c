@@ -188,6 +188,43 @@ double RePiL_degen_approx_2(double t, double q0, double q, double muFe){
 
 // }
 
+double ImPiT_degen_approx(double t, double q0, double q, double muFe){
+
+    double mue  = muFe + mt; // Change between conventions for muFe. Lasenby uses standard convention compared to our "Fermi Kinetic Energy"
+    double pf   = sqrt(mue * mue - mt * mt);
+    double Ef   = mue; //sqrt(pf * pf + mt * mt);
+    double vf   = pf/Ef;
+    double zf = q0 / q / vf;
+
+    double res;
+    
+    if (fabs(zf) > 1.0 ){
+        res = 0.0;
+    }
+    else{
+        res = SQR(echarge) * Ef * pf * zf * ( t / SQR(q) + Ef/mE);
+    }
+
+    return res;
+}
+
+double RePiT_degen_approx(double t, double q0, double q, double muFe){
+
+    double mue  = muFe + mt; // Change between conventions for muFe. Lasenby uses standard convention compared to our "Fermi Kinetic Energy"
+    double pf   = sqrt(mue * mue - mt * mt);
+    double Ef   = mue; //sqrt(pf * pf + mt * mt);
+    double vf   = pf/Ef;
+    double zf = q0 / q / vf;
+    double gf = Ef/mE;
+
+    double *res;
+
+    double prefac = -echarge * Ef * pf / 2.0 / pi/pi;
+
+    double brack = -1.0 + zf/2.0/SQR(gf) * logabs((1.0 + zf) / (1.0 - zf)) + (t/SQR(q)) * (-1.0 + 0.5 * zf * logabs((1.0 + zf) / (1.0 - zf)));
+
+    return prefac * brack;
+}
 
 // Dilute non-relativistic gas
 
@@ -243,6 +280,38 @@ double RePiL_dnr_approx(double t, double q0, double q, double nE){
     return wi2 * t / SQR(q0);
 }
 
+double RePiT_dnr(double t, double q0, double q, double nE){
+
+    double m = 12000.0;
+    nE = nE / (pmTOm * mTOinveV)/ (pmTOm * mTOinveV)/ (pmTOm * mTOinveV);
+
+    double T = 1e5 * kBMeV;
+    double Z = 6.0;
+
+    double wi2 = (4.0 * pi * nE/6.0) * SQR(6.0) * SQR(echarge) / m;
+    double s = sqrt(T / m);
+    double xi = q0 / (sqrt(2) * q * s);
+	double qp = t / (2*q0*m);
+
+    return wi2*(1 - (s*s - t/(4*m*m))*(m/q0)*xi* (Zr(xi*(1.0 + qp)) - Zr(xi*(1.0 - qp))));
+}
+
+double ImPiT_dnr(double t, double q0, double q, double nE){
+    
+    double m = 12000.0;
+    nE = nE / (pmTOm * mTOinveV)/ (pmTOm * mTOinveV)/ (pmTOm * mTOinveV);
+
+    double wi2 = (4.0 * pi * nE/6.0) * SQR(6.0) * SQR(echarge) / m;
+
+    double T = 1e5 * kBMeV;
+    double Z = 6.0;
+
+    double s = sqrt(T / m);
+    double xi = q0 / (sqrt(2) * q * s);
+	double qp = t / (2*q0*m);   
+
+    return -wi2*((s*s - t/(4*m*m))*(m/q0)*xi* (Zi(xi*(1 + qp)) - Zi(xi*(1 - qp))));
+}
 
 
 double PiL_appox(double t, double q0, double q, double muFe, double nE){
@@ -279,8 +348,8 @@ double CollEffectsFF(double t, double uchi, double mchi, double B, double muFe, 
 
         // Fudge Factor to account for collective effects
 
-        double RePiL = RePiL_degen_approx(t, q0, q, muFe); //+ RePiL_dnr(t, q0, q, nE);
-        double ImPiL = ImPiL_degen_approx(t, q0, q, muFe); //+ ImPiL_dnr(t, q0, q, nE);
+        double RePiL = RePiT_degen_approx(t, q0, q, muFe) + RePiT_dnr(t, q0, q, nE);
+        double ImPiL = ImPiT_degen_approx(t, q0, q, muFe) + ImPiT_dnr(t, q0, q, nE);
 
         // printf("%0.5e\n", RePiL_degen_approx(t, q0, q, muFe) / RePiL_degen(t, q0, q, muFe));
 
@@ -541,7 +610,7 @@ double intRateDeRoc_CUBA(double r, double mchi, int oper, int npts, void *cont_v
     double term_max[2] = {1, 1};
     double term_min[2] = {0, 0};
 
-    size_t max_evals = 100000;
+    size_t max_evals = 50000;
     double err_abs = 1e-12;
     double err_rel = 1e-12;
 

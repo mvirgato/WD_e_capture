@@ -111,8 +111,8 @@ system_setup(mE, set_WD, label, elem, "20", &np); //outputs mt = target mass and
 
 // control parameters
 
-control_params.z0 = 0.005;
-control_params.k0 = 0.0005;
+control_params.z0 = 0.0005;
+control_params.k0 = 0.00005;
 control_params.ct = 1.;
 
 
@@ -214,7 +214,8 @@ double int_rate_singleOp_Full(double r, int oper, double lmmin, double lmmax, do
                 for (i = 0; i <= end; i++)
                 {
                         mchi[i] = pow(10, lmmin + step*i);
-                        intOut[i] = intRateDeRoc_CUBA(r, mchi[i], oper, np, &control_params);
+                        intOut[i] = intRate(r, mchi[i], oper, np, &control_params);
+                        // intOut[i] = intRate(r, mchi[i], oper, np, &control_params);
                         // printf("%0.5e\n", intOut[i]);
                         printf("==================================\n");
                         printf("||\t%0.2f %% complete\t||\n", tally * 100. / (end));
@@ -226,7 +227,7 @@ double int_rate_singleOp_Full(double r, int oper, double lmmin, double lmmax, do
         // char *filename = malloc(strlen("./int_rates/single_op_CE") +  strlen(".dat") + 1);
         // sprintf(filename, "./int_rates/single_op_CE.dat");
 
-        char *filename = "./int_rates/single_op_DR.dat";
+        char *filename = "./int_rates/single_op_CE.dat";
 
         FILE *singleOp = fopen(filename, "w");
         // fprintf(singleOp, "mchi\tOmega\n");
