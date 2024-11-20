@@ -6,7 +6,7 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Wed Sep 13 13:34:19 2023
+# Make data base, printed on Wed Nov 20 13:21:24 2024
 
 # Variables
 
@@ -49,9 +49,9 @@ SHELL = /bin/sh
 # environment
 VTE_VERSION = 6003
 # environment
-VSCODE_NLS_CONFIG = {"locale":"en-us","osLocale":"en-au","availableLanguages":{},"_languagePackSupport":true}
+VSCODE_NLS_CONFIG = {"userLocale":"en-us","osLocale":"en-au","resolvedLanguage":"en","defaultMessagesFile":"/usr/share/code/resources/app/out/nls.messages.json","locale":"en-us","availableLanguages":{}}
 # environment
-JOURNAL_STREAM = 8:64255
+JOURNAL_STREAM = 8:120363
 # makefile (from 'makefile', line 42)
 CFLAGS := -O3 -fopenmp
 # environment
@@ -75,21 +75,22 @@ DBUS_SESSION_BUS_ADDRESS = unix:path=/run/user/1512424576/bus
 # environment
 _ = /usr/bin/code
 # environment
-MANAGERPID = 3415
+MANAGERPID = 4276
 # environment
 LESSOPEN = | /usr/bin/lesspipe %s
 # environment
 VSCODE_CWD = /home/student.unimelb.edu.au/mvirgato/WD_e_capture
+ 
 # environment
 KRB5CCNAME = KEYRING:persistent:1512424576
 # default
 MAKE_HOST := x86_64-pc-linux-gnu
 # environment
-PATH = /home/student.unimelb.edu.au/mvirgato/.local/bin:/home/student.unimelb.edu.au/mvirgato/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
+PATH = /usr/local/texlive/2023/bin/x86_64-linux:/home/student.unimelb.edu.au/mvirgato/.local/bin:/home/student.unimelb.edu.au/mvirgato/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
 # environment
 GPG_AGENT_INFO = /run/user/1512424576/gnupg/S.gpg-agent:0:1
 # environment
-SESSION_MANAGER = local/6400d-203327-l.mobility.unimelb.net.au:@/tmp/.ICE-unix/3706,unix/6400d-203327-l.mobility.unimelb.net.au:/tmp/.ICE-unix/3706
+SESSION_MANAGER = local/6400d-203327-l.mobility.unimelb.net.au:@/tmp/.ICE-unix/4459,unix/6400d-203327-l.mobility.unimelb.net.au:/tmp/.ICE-unix/4459
 # environment
 XDG_RUNTIME_DIR = /run/user/1512424576
 # environment
@@ -97,7 +98,7 @@ XDG_MENU_PREFIX = gnome-
 # environment
 ELECTRON_RUN_AS_NODE = 1
 # environment
-INVOCATION_ID = abe2a5e030af485d95c30ed5b867292c
+INVOCATION_ID = 31b3c624e93b4d05b6ba9905c63141a2
 # makefile (from 'makefile', line 43)
 LDFLAGS := -Llib
 # makefile (from 'makefile', line 44)
@@ -111,7 +112,7 @@ XDG_SESSION_DESKTOP = ubuntu
 # environment
 SSH_AUTH_SOCK = /run/user/1512424576/keyring/ssh
 # environment
-GIO_LAUNCHED_DESKTOP_FILE_PID = 4912
+GIO_LAUNCHED_DESKTOP_FILE_PID = 2901166
 # automatic
 %F = $(notdir $%)
 # environment
@@ -121,13 +122,11 @@ PWD = /home/student.unimelb.edu.au/mvirgato/WD_e_capture
 # default
 .LOADED := 
 # environment
-SSH_AGENT_PID = 3646
+SSH_AGENT_PID = 4421
 # environment
 ORIGINAL_XDG_CURRENT_DESKTOP = ubuntu:GNOME
 # environment
 GTK_MODULES = gail:atk-bridge
-# environment
-VSCODE_AMD_ENTRYPOINT = vs/workbench/api/node/extensionHostProcess
 # environment
 HOME = /home/student.unimelb.edu.au/mvirgato
 # environment
@@ -137,11 +136,9 @@ LESSCLOSE = /usr/bin/lesspipe %s %s
 # environment
 VSCODE_CLI = 1
 # environment
-VSCODE_CODE_CACHE_PATH = /home/student.unimelb.edu.au/mvirgato/.config/Code/CachedData/6509174151d557a81c9d0b5f8a5a1e9274db5585
+VSCODE_CODE_CACHE_PATH = /home/student.unimelb.edu.au/mvirgato/.config/Code/CachedData/f1a4fb101478ce6ec82fe9627c43efbf9e98c813
 # environment
 LOGNAME = mvirgato
-# environment
-APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL = 1
 # environment
 MATHEMATICA_HOME = /usr/local/Wolfram/Mathematica/13.1
 # environment
@@ -167,6 +164,8 @@ SHLVL = 1
 # makefile (from 'makefile', line 31)
 CC = gcc-9
 # environment
+VSCODE_ESM_ENTRYPOINT = vs/workbench/api/node/extensionHostProcess
+# environment
 GNOME_SHELL_SESSION_MODE = ubuntu
 # default
 MAKE_VERSION := 4.2.1
@@ -191,7 +190,7 @@ TERMINATOR_DBUS_PATH = /net/tenshu/Terminator2
 # automatic
 *F = $(notdir $*)
 # environment
-VSCODE_IPC_HOOK = /run/user/1512424576/vscode-16db64d1-1.82-main.sock
+VSCODE_IPC_HOOK = /run/user/1512424576/vscode-abac8b20-1.95-main.sock
 # makefile
 MAKEFLAGS = pqrR
 # environment
@@ -200,6 +199,8 @@ MFLAGS = -pqrR
 *D = $(patsubst %/,%,$(dir $*))
 # automatic
 +D = $(patsubst %/,%,$(dir $+))
+# environment
+VSCODE_L10N_BUNDLE_LOCATION = 
 # environment
 GDK_BACKEND = x11
 # automatic
@@ -223,7 +224,7 @@ GJS_DEBUG_TOPICS = JS ERROR;JS LOG
 # default
 SUFFIXES := 
 # environment
-CHROME_DESKTOP = code-url-handler.desktop
+CHROME_DESKTOP = code.desktop
 # environment
 WINDOWPATH = 2
 # default
@@ -241,9 +242,9 @@ TERM = xterm-256color
 # environment
 TERMINATOR_DBUS_NAME = net.tenshu.Terminator23558193cd9818af7fe4d2c2f5bd9d00f
 # environment
-VSCODE_PID = 864102
+VSCODE_PID = 2903174
 # environment
-TERMINATOR_UUID = urn:uuid:7a43e5a5-4881-42a3-ae55-e4a5ad4d1cfd
+TERMINATOR_UUID = urn:uuid:f20ebe5a-8924-4abc-a139-db91c6014618
 # variable set hash-table stats:
 # Load=117/1024=11%, Rehash=0, Collisions=24/184=13%
 
@@ -274,7 +275,6 @@ obj/hcubature.o: src/hcubature.c include/cubature.h include/converged.h include/
 #  File has not been updated.
 
 include/cubature.h:
- 
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
@@ -288,7 +288,7 @@ include/interaction_rates.h:
 # Not a target:
 src/interaction_rates.c:
 #  Implicit rule search has been done.
-#  Last modified 2022-09-16 16:51:57.013235991
+#  Last modified 2024-11-20 13:21:15.78604271
 #  File has been updated.
 #  Successfully updated.
 
@@ -363,6 +363,7 @@ include/collective_effects.h:
 # Not a target:
 src/cap_funcs.c:
 #  Implicit rule search has not been done.
+ 
 #  Modification time never checked.
 #  File has not been updated.
 
@@ -416,7 +417,7 @@ obj/crate_apprx_funcs.d:
 
 obj:
 #  Implicit rule search has not been done.
-#  Last modified 2022-09-16 16:51:57.001236071
+#  Last modified 2024-11-20 13:21:15.782042741
 #  File has been updated.
 #  Successfully updated.
 #  recipe to execute (from 'makefile', line 57):
@@ -441,7 +442,7 @@ src/hcubature.c:
 
 bin/run_capelec: obj/interaction_rates.o obj/evap_funcs.o obj/cap_interp.o obj/finite_T.o obj/multiscatter.o obj/hcubature.o obj/crate_apprx_funcs.o obj/main_elec_wd.o obj/collective_effects.o obj/cap_funcs.o | bin
 #  Implicit rule search has not been done.
-#  Last modified 2022-09-16 16:51:56.781237551
+#  Last modified 2024-11-20 13:21:15.782042741
 #  File has been updated.
 #  Needs to be updated (-q is set).
 # variable set hash-table stats:
@@ -541,7 +542,7 @@ obj/main_elec_wd.d:
 obj/interaction_rates.o: src/interaction_rates.c src/interaction_rates.c include/globals.h include/cap_funcs.h include/crate_apprx_funcs.h include/cap_interp.h include/interaction_rates.h include/collective_effects.h | obj
 #  Implicit rule search has been done.
 #  Implicit/static pattern stem: 'interaction_rates'
-#  Last modified 2022-09-16 16:51:57.001236071
+#  Last modified 2024-11-20 13:21:15.782042741
 #  File has been updated.
 #  Needs to be updated (-q is set).
 # automatic
@@ -551,7 +552,6 @@ obj/interaction_rates.o: src/interaction_rates.c src/interaction_rates.c include
 # automatic
 # * := interaction_rates
 # automatic
- 
 # + := src/interaction_rates.c src/interaction_rates.c include/globals.h include/cap_funcs.h include/crate_apprx_funcs.h include/cap_interp.h include/interaction_rates.h include/collective_effects.h
 # automatic
 # | := obj
@@ -614,6 +614,6 @@ src/crate_apprx_funcs.c:
 # strcache performance: lookups = 279 / hit rate = 65%
 # hash-table stats:
 # Load=95/8192=1%, Rehash=0, Collisions=2/279=1%
-# Finished Make data base on Wed Sep 13 13:34:19 2023
+# Finished Make data base on Wed Nov 20 13:21:24 2024
 
  

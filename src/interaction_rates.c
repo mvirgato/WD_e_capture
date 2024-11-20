@@ -99,7 +99,7 @@ double intRate(double r, double mchi, int oper, int npts, void *cont_vars)
 
     gsl_monte_function IntRateIntegrand = {&monteIntegrandIntRate, 3, &params};
 
-    size_t calls = 70000;
+    size_t calls = 50000;
 
     Trng = gsl_rng_default;
     rng = gsl_rng_alloc(Trng);
@@ -112,37 +112,37 @@ double intRate(double r, double mchi, int oper, int npts, void *cont_vars)
     //     // display_results("plain", res, err);
     // }
 
-    // {
-    //     gsl_monte_miser_state *s = gsl_monte_miser_alloc(3);
-    //     gsl_monte_miser_integrate(&IntRateIntegrand, term_min, term_max, 3, calls, rng, s, &res, &err);
-    //     gsl_monte_miser_free(s);
-
-    //     // display_results("misner", res, err);
-    //     // printf("MISER RESULT:\t%0.5e +- %0.3e\n", res*CoeffUappx(mchi), err*CoeffUappx(mchi));
-    // }
-
     {
-        gsl_monte_vegas_state *s = gsl_monte_vegas_alloc(3);
+        gsl_monte_miser_state *s = gsl_monte_miser_alloc(3);
+        gsl_monte_miser_integrate(&IntRateIntegrand, term_min, term_max, 3, calls, rng, s, &res, &err);
+        gsl_monte_miser_free(s);
 
-        gsl_monte_vegas_integrate(&IntRateIntegrand, term_min, term_max, 3, calls / 5, rng, s, &res, &err);
-        // display_results("vegas warm-up", res, err);
-        // printf("converging...\n");
-
-        do
-        {
-            gsl_monte_vegas_integrate(&IntRateIntegrand, term_min, term_max, 3, calls, rng, s, &res, &err);
-            // printf("result = % .6e sigma = % .6e "
-            //        "chisq/dof = %.1e\n",
-            //        res, err, gsl_monte_vegas_chisq(s));
-        }
-
-        while (fabs(gsl_monte_vegas_chisq(s) - 1.0) > 0.5);
-
-        // display_results("vegas final", res, err);
-
-        gsl_monte_vegas_free(s);
-        printf("VEGAS RESULT:\t%0.5e +/- %0.3e\n", res, err);
+        // display_results("misner", res, err);
+        // printf("MISER RESULT:\t%0.5e +- %0.3e\n", res*CoeffUappx(mchi), err*CoeffUappx(mchi));
     }
+
+    // {
+    //     gsl_monte_vegas_state *s = gsl_monte_vegas_alloc(3);
+
+    //     gsl_monte_vegas_integrate(&IntRateIntegrand, term_min, term_max, 3, calls / 5, rng, s, &res, &err);
+    //     // display_results("vegas warm-up", res, err);
+    //     // printf("converging...\n");
+
+    //     do
+    //     {
+    //         gsl_monte_vegas_integrate(&IntRateIntegrand, term_min, term_max, 3, calls, rng, s, &res, &err);
+    //         // printf("result = % .6e sigma = % .6e "
+    //         //        "chisq/dof = %.1e\n",
+    //         //        res, err, gsl_monte_vegas_chisq(s));
+    //     }
+
+    //     while (fabs(gsl_monte_vegas_chisq(s) - 1.0) > 0.5);
+
+    //     // display_results("vegas final", res, err);
+
+    //     gsl_monte_vegas_free(s);
+    //     printf("VEGAS RESULT:\t%0.5e +/- %0.3e\n", res, err);
+    // }
 
     gsl_rng_free(rng);
 
