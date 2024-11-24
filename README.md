@@ -11,7 +11,7 @@ First complie the code with make, then run the run_capelec.exe with the EoS numb
     make
     ./bin/run_capelec
 
-which runs the code for the default $1.38367 M_\odot$ WD on half the system cores.
+which runs the code for the default $$1.38367 M_\odot$$ WD on half the system cores.
 
 OR
 
